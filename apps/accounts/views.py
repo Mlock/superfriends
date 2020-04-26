@@ -8,6 +8,9 @@ from django.contrib.auth.decorators import login_required
 from apps.accounts.forms import UserEditForm, SignupForm
 from apps.accounts.models import User
 
+# Challenge Solution:
+from apps.core.models import FriendList
+
 def log_in(request):
     if request.method == 'POST':
         form = AuthenticationForm(request, request.POST)
@@ -61,6 +64,9 @@ def view_all_users(request):
 def view_profile(request, username):
     user = User.objects.get(username=username)
 
+    # Challenge solution:
+    friend_lists = FriendList.objects.filter(creator_user=user)
+
     if request.user == user:
         is_viewing_self = True
     else:
@@ -69,6 +75,7 @@ def view_profile(request, username):
     context = {
         'user': user,
         'is_viewing_self': is_viewing_self,
+        'user_friend_lists': friend_lists,
     }
     return render(request, 'accounts/profile_page.html', context)
 
