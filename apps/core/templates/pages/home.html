@@ -34,7 +34,7 @@
         <!-- This shows the creation date of the list, along with the avatar
              and username of the creator -->
         <div>
-            Added on {{ friend.created|date:"F jS Y" }} 
+            Last contacted on {{ friend.created|date:"F jS Y" }} 
             <a class="btn btn-link" href="/account/users/{{ friend.creator_user.username }}/" >
                 {{ friend.creator_user }}
                 <img src="{{ friend.creator_user.gravatar }}" class="navbar-avatar" />
