@@ -80,7 +80,11 @@ def friend_list_delete(request, friend_id):
 def friend_edit(request, friend_id):
 #     # U in CRUD, edit the contact information
      contact = Contact.objects.get(id=friend_id)
-#     return render(request, 'pages/form_page.html', context)
+     form = AddContactForm(initial={"name": contact.name})
+     context = {
+        'form': form,
+    }
+     return render(request, 'pages/form_page.html', context)
 
 
 @login_required
