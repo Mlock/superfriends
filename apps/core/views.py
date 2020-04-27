@@ -64,12 +64,12 @@ def friend_list_create(request):
 
 @login_required
 def friend_list_delete(request, friend_id):
-    # D in CRUD --- DELETE reading list from database
+    # D in CRUD --- DELETE contact from database
     contact = Contact.objects.get(id=friend_id)
 
     # BONUS: Security
-    if contact.creator_user == request.user:
-        contact.delete()
+    # if contact.creator_user == request.user:
+    contact.delete()
 
     return redirect('/')
 

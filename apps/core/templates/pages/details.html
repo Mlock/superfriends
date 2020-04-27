@@ -12,14 +12,20 @@
 </h1>
 
 {% if user.is_authenticated and friend_list.creator_user == user %}
-    <p>
-        <p>Add friend contact details in here</p>
+    <div>
+        <p><strong>Name</strong>: {{friend_list.name}} </p>
+        <p><strong>Email</strong> {{friend_list.email}} </p>
+        <p><strong>Phone</strong> {{friend_list.phone}} </p>
+        <p><strong>Address</strong> {{friend_list.address}} </p>
+        <p><strong>Birthday</strong>: {{friend_list.birthday}} </p>
+        <p><strong>Notes</strong> {{friend_list.notes}} </p>
 
         <!-- <a href="/friend-create/{{ friend_list.id }}/" class="btn btn-primary btn-lg">
             + Add Friend
         </a> -->
-        <a href="/friend/delete/{{ friend_list.id }}/" class="btn btn-outline-danger btn-sm ml-5">Delete "{{friend_list.name }}"</a>
-    </p>
+        <a href="/friend/delete/{{ friend_list.id }}/" class="btn btn-outline-danger btn-sm ml-5">Delete </a>
+        <a href="/friend/edit/{{ friend_list.id }}/" class="btn btn-outline-primary btn-sm ml-5">Edit "{{friend_list.name }}"</a>
+    </div>
 {% endif %}
 
 

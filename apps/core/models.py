@@ -21,10 +21,10 @@ class Contact(models.Model):
     creator_user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     # BONUS SOLUTION:
-    users_who_voted = models.ManyToManyField(
-        User,
-        related_name='friend_lists_voted_on',
-    )
+    # users_who_voted = models.ManyToManyField(
+    #     User,
+    #     related_name='friend_lists_voted_on',
+    # )
 
 
 class Friend(models.Model):
