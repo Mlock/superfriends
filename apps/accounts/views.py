@@ -9,7 +9,7 @@ from apps.accounts.forms import UserEditForm, SignupForm
 from apps.accounts.models import User
 
 # Challenge Solution:
-from apps.core.models import FriendList
+from apps.core.models import Contact
 
 def log_in(request):
     if request.method == 'POST':
@@ -65,7 +65,7 @@ def view_profile(request, username):
     user = User.objects.get(username=username)
 
     # Challenge solution:
-    friend_lists = FriendList.objects.filter(creator_user=user)
+    friend_lists = Contact.objects.filter(creator_user=user)
 
     if request.user == user:
         is_viewing_self = True

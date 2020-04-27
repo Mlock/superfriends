@@ -2,15 +2,15 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 
 from apps.core.helpers import get_book_cover_url_from_api, redirect_back
-from apps.core.models import Friend, FriendList
-from apps.core.forms import AddFriendForm, AddFriendListForm
+from apps.core.models import Friend, Contact
+from apps.core.forms import AddFriendForm, AddContactForm
 
 
 def friend_list_home(request):
     # R in CRUD --- READ ReadingLists from database
     # Using order_by('-votes') we'll get it with most votes on top
 
-    friend_lists = FriendList.objects.all().order_by('-votes')
+    friend_lists = Contact.objects.all().order_by('-votes')
 
     context = {
         'all_friend_lists': friend_lists,
@@ -19,7 +19,7 @@ def friend_list_home(request):
 
 def friend_list_details(request, friend_id):
     # R in CRUD --- READ a single ReadingList & its books from database
-    friend_list_requested = FriendList.objects.get(id=friend_id)
+    friend_list_requested = Contact.objects.get(id=friend_id)
     # SOLUTION:
     friends = Friend.objects.filter(friend_list=friend_list_requested)
     context = {
@@ -32,7 +32,7 @@ def friend_list_details(request, friend_id):
 def friend_list_create(request):
     if request.method == 'POST':
         # Create a form instance and populate it with data from the request
-        form = AddFriendListForm(request.POST)
+        form = AddContactForm(request.POST)
         if form.is_valid():
             # C in CRUD --- CREATE reading list in database
 
@@ -40,7 +40,7 @@ def friend_list_create(request):
             logged_in_user = request.user
             # print('Current user:', logged_in_user)
 
-            FriendList.objects.create(
+            Contact.objects.create(
                 name=form.cleaned_data['name'],
                 email=form.cleaned_data['email'],
                 phone=form.cleaned_data['phone'],
@@ -55,7 +55,7 @@ def friend_list_create(request):
             return redirect('/')
     else:
         # if a GET  we'll create a blank form
-        form = AddFriendListForm()
+        form = AddContactForm()
     context = {
         'form': form,
     }
@@ -65,11 +65,11 @@ def friend_list_create(request):
 @login_required
 def friend_list_delete(request, friend_id):
     # D in CRUD --- DELETE reading list from database
-    friendlist = FriendList.objects.get(id=friend_id)
+    contact = Contact.objects.get(id=friend_id)
 
     # BONUS: Security
-    if friendlist.creator_user == request.user:
-        friendlist.delete()
+    if contact.creator_user == request.user:
+        contact.delete()
 
     return redirect('/')
 
@@ -77,7 +77,7 @@ def friend_list_delete(request, friend_id):
 @login_required
 def friend_list_create_book(request, friend_id):
     # C in CRUD --- CREATE books in database
-    friend_list_requested = FriendList.objects.get(id=friend_id)
+    friend_list_requested = Contact.objects.get(id=friend_id)
 
     # BONUS SOLUTION:
     # Prevent users who are not the requested user from accessing this

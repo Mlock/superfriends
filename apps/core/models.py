@@ -1,13 +1,14 @@
 from django.db import models
+from datetime import datetime
 
 from apps.accounts.models import User
 
-class FriendList(models.Model):
+class Contact(models.Model):
     name = models.CharField(unique=True, max_length=30)
     email = models.CharField(default='', max_length=30)
     phone = models.CharField(default='', max_length=30)
     address = models.CharField(max_length=300, default='', )
-    birthday = models.CharField(max_length=30, default='', )
+    birthday = models.DateField(auto_now=True)
     notes = models.CharField(max_length=500, default='', )
     type = models.CharField(max_length=64)
     frequency = models.CharField(max_length=64, default='')
@@ -33,7 +34,7 @@ class Friend(models.Model):
 
     # SOLUTION:
     friend_list = models.ForeignKey(
-        FriendList,
+        Contact,
         on_delete=models.CASCADE,
     )
 
