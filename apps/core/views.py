@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
+import datetime
 
 from apps.core.helpers import get_book_cover_url_from_api, redirect_back
 from apps.core.models import Friend, FriendList
@@ -61,6 +62,13 @@ def friend_list_create(request):
     }
     return render(request, 'pages/form_page.html', context)
 
+
+# def reminder():
+#     days = 1
+#     week = 7
+#     month = 30
+#     reminder = days * input(int)
+#     snooze = days + 1
 
 @login_required
 def friend_list_delete(request, friend_id):
@@ -153,4 +161,28 @@ def friend_list_vote_down(request, friend_id):
         friend_list.users_who_voted.add(logged_in_user)
         friend_list.save()
     return redirect_back(request)
+
+# # Psuedo code
+# if New friend added to friend_list, 
+# Set reminder to contact friend in 7 days
+# if snooze is selected, set reminder to contact friend in 24 hours
+
+# @login_required
+# def contact_friend(request, friend_id):
+#     new_friend = friend_list.objects.get(id=list_id)
+
+
+
+@login_required
+def user_dashboard(request):
+    context={
+
+    }
+    return render(request, 'pages/dashboard.html', context)
+# @login_required
+# def snooze(request, friend_id):
+    
+
+#     return redirect('/')
+
 
