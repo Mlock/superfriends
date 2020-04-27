@@ -12,8 +12,10 @@ def friend_list_home(request):
     # Using order_by('-votes') we'll get it with most votes on top
 
     friend_lists = FriendList.objects.all().order_by('-votes')
+    hi_friends = FriendList.objects.all().order_by('-votes')
 
     context = {
+        'hi_friends': hi_friends,
         'all_friend_lists': friend_lists,
     }
     return render(request, 'pages/home.html', context)
