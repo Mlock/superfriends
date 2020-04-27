@@ -74,6 +74,15 @@ def friend_list_delete(request, friend_id):
     return redirect('/')
 
 
+
+# This does not yet work
+
+def friend_edit(request, friend_id):
+#     # U in CRUD, edit the contact information
+     contact = Contact.objects.get(id=friend_id)
+#     return render(request, 'pages/form_page.html', context)
+
+
 @login_required
 def friend_list_create_book(request, friend_id):
     # C in CRUD --- CREATE books in database
@@ -109,16 +118,8 @@ def friend_list_create_book(request, friend_id):
     return render(request, 'pages/form_page.html', context)
 
 
-@login_required
-def friend_list_delete_book(request, book_id):
-    # D in CRUD, increase the votes count
-    book = Book.objects.get(id=book_id)
+## Old stuff
 
-    # BONUS SOLUTION: Security
-    if book.friend_list.creator_user == request.user:
-        book.delete()
-
-    return redirect_back(request)
 
 @login_required
 def friend_list_vote_up(request, friend_id):

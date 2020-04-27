@@ -8,6 +8,7 @@ urlpatterns = [
     path('friend/<int:friend_id>/', views.friend_list_details),
     path('friend/create/', views.friend_list_create),
     path('friend/delete/<int:friend_id>/', views.friend_list_delete),
+    path('friend/edit/<int:friend_id>/', views.friend_edit),
 
     # CRUD views for editing Books within ReadingLists
     #path('friend-create/<int:friend_id>/', views.friend_list_create_book),
