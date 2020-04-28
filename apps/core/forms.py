@@ -1,4 +1,8 @@
 from django import forms
+from django.core.validators import validate_email
+import re
+
+EMAIL_REGEX = r"(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)"
 
 class AddFriendForm(forms.Form):
     title = forms.CharField()
@@ -24,12 +28,24 @@ FREQUENCY = [
 class AddContactForm(forms.Form):
     first_name = forms.CharField()
     last_name = forms.CharField()
-    file = forms.FileField() 
-    email = forms.CharField()
-    phone = forms.CharField()
-    address = forms.CharField()
-    birthday = forms.DateField()
+    picture = forms.ImageField(required=False, allow_empty_file=True) 
+    email = forms.EmailField()
+    def clean_email(self):
+            email = self.cleaned_data.get('email')
+
+            if email and not re.match(EMAIL_REGEX, email):
+                raise forms.ValidationError('Invalid email format')
+
+            return email
+
+    phone = forms.CharField(required=False)
+    address = forms.CharField(required=False)
+    birthday = forms.DateField(required=False)
     notes = forms.CharField(widget=forms.Textarea)
     type = forms.ChoiceField(choices=RELATION)
     frequency = forms.ChoiceField(choices=FREQUENCY)
+    linkedin = forms.URLField(required=False)
+    facebook = forms.URLField(required=False)
+    instagram = forms.URLField(required=False)
+    twitter = forms.URLField(required=False)
 

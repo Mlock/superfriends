@@ -42,6 +42,10 @@ def contact_create(request):
                 notes=form.cleaned_data['notes'],
                 type=form.cleaned_data['type'],
                 frequency=form.cleaned_data['frequency'],
+                linkedin=form.cleaned_data['linkedin'],
+                facebook=form.cleaned_data['facebook'],
+                instagram=form.cleaned_data['instagram'],
+                twitter=form.cleaned_data['twitter'],
                 creator_user=logged_in_user,
             )
             return redirect('/')
