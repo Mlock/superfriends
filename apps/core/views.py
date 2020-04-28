@@ -64,14 +64,6 @@ def friend_list_create(request):
     }
     return render(request, 'pages/form_page.html', context)
 
-
-# def reminder():
-#     days = 1
-#     week = 7
-#     month = 30
-#     reminder = days * input(int)
-#     snooze = days + 1
-
 @login_required
 def friend_list_delete(request, friend_id):
     # D in CRUD --- DELETE reading list from database
