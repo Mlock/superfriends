@@ -21,12 +21,14 @@ FREQUENCY = [
     ('custom', "Custom"),
 ]
 
-class AddFriendListForm(forms.Form):
-    name = forms.CharField()
+class AddContactForm(forms.Form):
+    first_name = forms.CharField()
+    last_name = forms.CharField()
+    file = forms.FileField() 
     email = forms.CharField()
     phone = forms.CharField()
     address = forms.CharField()
-    birthday = forms.CharField()
+    birthday = forms.DateField()
     notes = forms.CharField(widget=forms.Textarea)
     type = forms.ChoiceField(choices=RELATION)
     frequency = forms.ChoiceField(choices=FREQUENCY)
