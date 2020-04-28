@@ -1,24 +1,36 @@
 {% extends "base.html" %}
 
 {% block title %}
-    Superfriends - Your Friends
+    Superfriends - Your Contacts
 {% endblock title %}
 
 {% block content %}
 <h1>
-    {{ friend_list.name }}
-    <span class="badge badge-info">{{ friend_list.type }}</span>
+    {{ contact_list.first_name }} {{ contact_list.last_name }}
+    <span class="badge badge-info">{{ contact_list.type }}</span>
 
 </h1>
 
-{% if user.is_authenticated and friend_list.creator_user == user %}
+{% if user.is_authenticated and contact_list.creator_user == user %}
     <p>
         <p>Add friend contact details in here</p>
+
+        <p>Name: {{ contact_list.name }}</p>
+        <p>Email: {{ contact_list.email }}</p>
+        <p>Phone: {{ contact_list.phone }}</p>
+        <p>Address: {{ contact_list.address }}</p>
+        <p>Birthday: {{ contact_list.birthday }}</p>
+        <p>Notes: {{ contact_list.notes }}</p>
+        <p>Frequency: {{ contact_list.frequency }}</p>
+
+    
+
+        
 
         <!-- <a href="/friend-create/{{ friend_list.id }}/" class="btn btn-primary btn-lg">
             + Add Friend
         </a> -->
-        <a href="/friend/delete/{{ friend_list.id }}/" class="btn btn-outline-danger btn-sm ml-5">Delete "{{friend_list.name }}"</a>
+        <a href="/contact/delete/{{ contact_list.id }}/" class="btn btn-outline-danger btn-sm ml-5">Delete "{{contact_list.first_name }} {{contact_list.last_name }}"</a>
     </p>
 {% endif %}
 

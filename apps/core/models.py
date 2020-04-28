@@ -4,7 +4,8 @@ from datetime import datetime
 from apps.accounts.models import User
 
 class Contact(models.Model):
-    name = models.CharField(unique=True, max_length=30)
+    first_name = models.CharField(default='', unique=True, max_length=30)
+    last_name = models.CharField(default='', unique=True, max_length=30)
     email = models.CharField(default='', max_length=30)
     phone = models.CharField(default='', max_length=30)
     address = models.CharField(max_length=300, default='', )
@@ -17,23 +18,11 @@ class Contact(models.Model):
     created = models.DateTimeField(auto_now_add=True) # Add current date
     last_modified = models.DateTimeField(auto_now=True)
 
-    # SOLUTION:
     creator_user = models.ForeignKey(User, on_delete=models.CASCADE)
 
-    # BONUS SOLUTION:
-    users_who_voted = models.ManyToManyField(
-        User,
-        related_name='friend_lists_voted_on',
-    )
 
-
-class Friend(models.Model):
-    title = models.CharField(max_length=30)
-    description = models.TextField()
-    cover_url = models.URLField(max_length=127)
-
-    # SOLUTION:
-    friend_list = models.ForeignKey(
+class IndividualContact(models.Model):
+    contact_list = models.ForeignKey(
         Contact,
         on_delete=models.CASCADE,
     )
