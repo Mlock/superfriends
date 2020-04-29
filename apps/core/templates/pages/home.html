@@ -6,11 +6,12 @@
 
 {% block content %}
 {% if user.is_authenticated %}
+{% for friend in hi_friends %}
+{% if hi_friends.frequency == 0 %}
+<!-- This should show up only if friends need to be contacted-->
 <h2>Say hi to your friends</h2>
 
-    {% for friend in hi_friends %}
-    {% for contact in contact list %}
-    {% if contact frequncy = 0 %}
+
     <!-- Loop through friends that need to be contacted and display here -->
 
     <div class="media mt-3 border rounded shadow-sm">
@@ -47,6 +48,7 @@
             </a>
         </div>
     </div>
+    {% endif %}
     {% endfor %}
 {% else %}
 <h1> Get closer to your friends</h1>

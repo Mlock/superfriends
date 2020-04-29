@@ -53,11 +53,6 @@ def contact_create(request):
     }
     return render(request, 'pages/form_page.html', context)
 
-<<<<<<< HEAD
-=======
-
-
->>>>>>> master
 @login_required
 def contact_delete(request, contact_id):
     contact = Contact.objects.get(id=contact_id)
@@ -65,6 +60,33 @@ def contact_delete(request, contact_id):
         contact.delete()
 
     return redirect('/')
+
+# @login_required
+# def hi_friends(request):
+#     if request.method == 'GET':
+#         contact_lists = Contact.objects.all().order_by(Lower('last_name'))
+#         for contact_lists:
+#             reminder = contact_lists.frequency
+#             x = reminder
+#             contact_date = x - 1
+#             if contact_date == 0:
+#  context = {
+#         'contact_list': contact_lists,
+        # 'all_friends': contacts,
+    # }
+    # return render(request, 'pages/home.html', context)
+
+# look at contact method
+# def snooze(request, contact_id): 
+#     Contact.frequncy += 1
+
+# look at twitten (like the editing is snooze)
+
+# def hi_friends(request):
+#     if request.method == 'GET':
+#         contact_list = Contact.objects.all().order_by(Lower('last_name'))
+
+#         if contact_list.frequency
 
 
 # @login_required
@@ -170,32 +192,6 @@ def contact_delete(request, contact_id):
 
 #     return redirect('/')
 
-# @login_required
-def hi_friends(request):
-    if request.method == 'GET':
-        contact_lists = Contact.objects.all().order_by(Lower('last_name'))
-        for contact_lists:
-            reminder = contact_lists.frequency
-            x = reminder
-            contact_date = x - 1
-            if contact_date == 0:
- context = {
-        'contact_list': contact_lists,
-        # 'all_friends': contacts,
-    }
-    return render(request, 'pages/home.html', context)
-
-# look at contact method
-def snooze(request, contact_id): 
-    Contact.frequncy += 1
-
-# look at twitten (like the editing is snooze)
-
-# def hi_friends(request):
-#     if request.method == 'GET':
-#         contact_list = Contact.objects.all().order_by(Lower('last_name'))
-
-#         if contact_list.frequency
 
 
              
