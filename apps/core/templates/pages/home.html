@@ -5,9 +5,9 @@
 {% endblock title %}
 
 {% block content %}
-{% if user.is_authenticated %}
+{% if user.is_authenticated and hi_friends.frequency == 0  %}
 {% for friend in hi_friends %}
-{% if hi_friends.frequency == 0 %}
+
 <!-- This should show up only if friends need to be contacted-->
 <h2>Say hi to your friends</h2>
 
@@ -28,6 +28,7 @@
             {% endif %} -->
            
             <a class="btn btn-outline-dark disabled">Snooze</a>
+            <!-- if snooze is clicked, add a day to freuency of contact and hide contact -->
             <a class="btn btn-outline-dark disabled">Contacted</a>
             
         </div>
@@ -48,7 +49,6 @@
             </a>
         </div>
     </div>
-    {% endif %}
     {% endfor %}
 {% else %}
 <h1> Get closer to your friends</h1>
