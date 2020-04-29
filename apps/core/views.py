@@ -16,7 +16,6 @@ def contact_home(request):
 
 def contact_details(request, contact_id):
     contact_list_requested = Contact.objects.get(id=contact_id)
-    # contacts = IndividualContact.objects.filter(contact_list=contact_list_requested)
     context = {
         'contact_list': contact_list_requested,
     }
