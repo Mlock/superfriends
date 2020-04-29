@@ -1,4 +1,3 @@
 from django.contrib import admin
-from .models import IndividualContact, Contact
-admin.site.register(IndividualContact)
+from .models import Contact
 admin.site.register(Contact)

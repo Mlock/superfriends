@@ -12,10 +12,20 @@
 </h1>
 
 {% if user.is_authenticated and contact_list.creator_user == user %}
-    <p>
-        <p>Add friend contact details in here</p>
+    <div class="row">
+        <div class="col-">
 
-        <p>Name: {{ contact_list.name }}</p>
+
+        {% if contact_list.picture %}
+        <img src="{{ contact_list.picture.url }}" width="150px">
+        {% else %}
+        
+        <img src="/static/images/default.jpg"  width="150px"/>
+
+        {% endif %}
+        </div>
+        <div class="col-sm">
+        <p>Name: {{ contact_list.first_name }} {{ contact_list.last_name }}</p>
         <p>Email: {{ contact_list.email }}</p>
         <p>Phone: {{ contact_list.phone }}</p>
         <p>Address: {{ contact_list.address }}</p>
@@ -23,15 +33,36 @@
         <p>Notes: {{ contact_list.notes }}</p>
         <p>Frequency: {{ contact_list.frequency }}</p>
 
-    
+        {% if contact_list.linkedin %}
+        <a href="{{ contact_list.linkedin }}" target="_blank"><img src="/static/images/linkedin.png" height="20px"></a>
+        {% else %}
+        {% endif %}
+        {% if contact_list.facebook %}
+        <a href="{{ contact_list.facebook }}" target="_blank"><img src="/static/images/facebook.png" height="20px"></a>
+        {% else %}
+        {% endif %}
+        {% if contact_list.instagram %}
+        <a href="{{ contact_list.instagram }}" target="_blank"><img src="/static/images/instagram.png" height="20px"></a>
+        {% else %}
+        {% endif %}
+        {% if contact_list.twitter %}
+        <a href="{{ contact_list.twitter }}" target="_blank"><img src="/static/images/twitter.png" height="20px"></a>
+        {% else %}
+        {% endif %}
+        <br /><br />
+
+
+        <a href="/contact/delete/{{ contact_list.id }}/" class="btn btn-outline-danger btn-sm">Delete "{{contact_list.first_name }} {{contact_list.last_name }}"</a>
+        </div>
+    </div>
 
         
 
         <!-- <a href="/friend-create/{{ friend_list.id }}/" class="btn btn-primary btn-lg">
             + Add Friend
         </a> -->
-        <a href="/contact/delete/{{ contact_list.id }}/" class="btn btn-outline-danger btn-sm ml-5">Delete "{{contact_list.first_name }} {{contact_list.last_name }}"</a>
-    </p>
+        <!-- <a href="/contact/delete/{{ contact_list.id }}/" class="btn btn-outline-danger btn-sm ml-5">Delete "{{contact_list.first_name }} {{contact_list.last_name }}"</a> -->
+    </div>
 {% endif %}
 
 
