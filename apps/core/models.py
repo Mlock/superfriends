@@ -19,6 +19,8 @@ class Contact(models.Model):
     last_modified = models.DateTimeField(auto_now=True)
 
     creator_user = models.ForeignKey(User, on_delete=models.CASCADE)
+    contacted_date = models.DateField(auto_now=True)
+    snooze_date = models.DateField(auto_now=True)
 
 
 class IndividualContact(models.Model):

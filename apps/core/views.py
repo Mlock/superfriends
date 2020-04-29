@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 import datetime
+from django.utils import timezone
 
 from apps.core.helpers import get_book_cover_url_from_api, redirect_back
 from apps.core.models import IndividualContact, Contact
@@ -63,7 +64,7 @@ def contact_delete(request, contact_id):
 
 @login_required
 def hi_friends(request):
-    if request.method == 'GET':
+    if request.method == 'POST':
         contact_lists = Contact.objects.all().order_by(Lower('last_name'))
         for contact in contact_lists:
             reminder = contact_lists.frequency
@@ -75,15 +76,21 @@ def hi_friends(request):
     }
     return render(request, 'pages/home.html', context)
 
+def contacted_date(request, contact_id):
+    contact = Contact.objects.get(id=contact_id)
+    contact.update(
+        contacted_date = timezone.now()
+    )
+    return redirect(request.META.get('HTTP_REFERER', '/'))
+
+
+
 def snooze(request, contact_id):
-    frequency = request.POST['frequency']
-
-    # Update the frequency
-    frequency = Contact.objects.get(id=frequency)
-    frequency = frequency + 1
-    frequency.save()
-
-    # Redirect to wherever they came from
+    contact = Contact.objects.get(id=contact_id)
+#    make a form that doesn't have any fields and make a submit button. Form action is pointing to the url that hits the snooze function
+    contact.update(
+       snooze_date = timezone.now()
+    )
     return redirect(request.META.get('HTTP_REFERER', '/'))
 
 
