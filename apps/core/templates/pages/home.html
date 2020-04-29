@@ -5,9 +5,12 @@
 {% endblock title %}
 
 {% block content %}
+{% if user.is_authenticated %}
 <h2>Say hi to your friends</h2>
 
-{% for friend in hi_friends %}
+    {% for friend in hi_friends %}
+    {% for contact in contact list %}
+    {% if contact frequncy = 0 %}
     <!-- Loop through friends that need to be contacted and display here -->
 
     <div class="media mt-3 border rounded shadow-sm">
@@ -22,7 +25,10 @@
             {% if user.is_authenticated %}
                 <a href="/list/{{ rl.id }}/vote/down/" class="btn btn-outline-danger">&darr;</a>
             {% endif %} -->
+           
             <a class="btn btn-outline-dark disabled">Snooze</a>
+            <a class="btn btn-outline-dark disabled">Contacted</a>
+            
         </div>
 
         <!-- This shows the "name" of the Reading List as a link to the full
@@ -41,7 +47,10 @@
             </a>
         </div>
     </div>
-{% endfor %}
+    {% endfor %}
+{% else %}
+<h1> Get closer to your friends</h1>
+{% endif %}
 </br>
 </br>
 
