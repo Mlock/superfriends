@@ -1,6 +1,5 @@
 from django.db import models
 from datetime import datetime
-
 from apps.accounts.models import User
 
 class Contact(models.Model):

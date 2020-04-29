@@ -24,7 +24,7 @@ FREQUENCY = [
 class AddContactForm(forms.Form):
     first_name = forms.CharField()
     last_name = forms.CharField()
-    file = forms.FileField() 
+    #file = forms.FileField() 
     email = forms.CharField()
     phone = forms.CharField()
     address = forms.CharField()

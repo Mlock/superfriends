@@ -36,7 +36,7 @@ def contact_create(request):
                 first_name=form.cleaned_data['first_name'],
                 last_name=form.cleaned_data['last_name'],
                 email=form.cleaned_data['email'],
-                picture=form.cleaned_data['picture'],
+                #picture=form.cleaned_data['picture'],
                 phone=form.cleaned_data['phone'],
                 address=form.cleaned_data['address'],
                 birthday=form.cleaned_data['birthday'],
@@ -69,6 +69,15 @@ def contact_delete(request, contact_id):
 
     return redirect('/')
 
+@login_required
+def contact_edit(request, contact_id):
+     # U in CRUD, edit the contact information
+     contact = Contact.objects.get(id=contact_id)
+     form = AddContactForm(initial={"first_name": contact.first_name})
+     context = {
+        'form': form,
+    }
+     return render(request, 'pages/form_page.html', context)
 
 # @login_required
 # def friend_list_create_book(request, friend_id):
