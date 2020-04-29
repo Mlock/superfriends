@@ -53,7 +53,6 @@ def contact_create(request):
     }
     return render(request, 'pages/form_page.html', context)
 
-
 # def reminder():
 #     days = 1
 #     week = 7
@@ -66,18 +65,18 @@ def contact_delete(request, contact_id):
     contact = Contact.objects.get(id=contact_id)
     if contact.creator_user == request.user:
         contact.delete()
-
     return redirect('/')
 
 @login_required
 def contact_edit(request, contact_id):
-     # U in CRUD, edit the contact information
-     contact = Contact.objects.get(id=contact_id)
-     form = AddContactForm(initial={"first_name": contact.first_name})
-     context = {
+    #U in CRUD, edit the contact information
+    contact = Contact.objects.get(id=contact_id)
+    form = AddContactForm(initial={"first_name": contact.first_name})
+    context = {
         'form': form,
     }
-     return render(request, 'pages/form_page.html', context)
+    return render(request, 'pages/form_page.html', context)
+
 
 # @login_required
 # def friend_list_create_book(request, friend_id):
@@ -167,7 +166,6 @@ def contact_edit(request, contact_id):
 # @login_required
 # def contact_friend(request, friend_id):
 #     new_friend = friend_list.objects.get(id=list_id)
-
 
 
 @login_required
