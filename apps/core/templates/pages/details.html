@@ -15,18 +15,14 @@
     <div class="row">
         <div class="col-">
 
+
         {% if contact_list.picture %}
         <img src="{{ contact_list.picture.url }}" width="150px">
         {% else %}
         
-        test 2
-        <img src="/media/images/default.png"  width="150px"/>
+        <img src="/static/images/default.jpg"  width="150px"/>
 
         {% endif %}
-
-        <!-- {{ contact_list.picture.url }} -->
-        <!-- <img src="/media/images/default.png" /> -->
-        <!-- <img src="{{ contact_list.picture.url }}" width="150px" /> -->
         </div>
         <div class="col-sm">
         <p>Name: {{ contact_list.first_name }} {{ contact_list.last_name }}</p>
@@ -38,19 +34,19 @@
         <p>Frequency: {{ contact_list.frequency }}</p>
 
         {% if contact_list.linkedin %}
-        <a href="{{ contact_list.linkedin }}" target="_blank"><img src="/media/images/linkedin.png" height="20px"></a>
+        <a href="{{ contact_list.linkedin }}" target="_blank"><img src="/static/images/linkedin.png" height="20px"></a>
         {% else %}
         {% endif %}
         {% if contact_list.facebook %}
-        <a href="{{ contact_list.facebook }}" target="_blank"><img src="/media/images/facebook.png" height="20px"></a>
+        <a href="{{ contact_list.facebook }}" target="_blank"><img src="/static/images/facebook.png" height="20px"></a>
         {% else %}
         {% endif %}
         {% if contact_list.instagram %}
-        <a href="{{ contact_list.instagram }}" target="_blank"><img src="/media/images/instagram.png" height="20px"></a>
+        <a href="{{ contact_list.instagram }}" target="_blank"><img src="/static/images/instagram.png" height="20px"></a>
         {% else %}
         {% endif %}
         {% if contact_list.twitter %}
-        <a href="{{ contact_list.twitter }}" target="_blank"><img src="/media/images/twitter.png" height="20px"></a>
+        <a href="{{ contact_list.twitter }}" target="_blank"><img src="/static/images/twitter.png" height="20px"></a>
         {% else %}
         {% endif %}
         <br /><br />

@@ -2,8 +2,8 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 
 from apps.core.helpers import get_book_cover_url_from_api, redirect_back
-from apps.core.models import IndividualContact, Contact
-from apps.core.forms import AddFriendForm, AddContactForm
+from apps.core.models import Contact
+from apps.core.forms import AddContactForm
 from django.db.models.functions import Lower
 
 
@@ -16,10 +16,9 @@ def contact_home(request):
 
 def contact_details(request, contact_id):
     contact_list_requested = Contact.objects.get(id=contact_id)
-    contacts = IndividualContact.objects.filter(contact_list=contact_list_requested)
+    # contacts = IndividualContact.objects.filter(contact_list=contact_list_requested)
     context = {
         'contact_list': contact_list_requested,
-        'all_friends': contacts,
     }
     return render(request, 'pages/details.html', context)
 
@@ -29,26 +28,34 @@ def contact_create(request):
         # Create a form instance and populate it with data from the request
         form = AddContactForm(request.POST, request.FILES)
         if form.is_valid():
-            logged_in_user = request.user
-
-            Contact.objects.create(
-                first_name=form.cleaned_data['first_name'],
-                last_name=form.cleaned_data['last_name'],
-                email=form.cleaned_data['email'],
-                picture=form.cleaned_data['picture'],
-                phone=form.cleaned_data['phone'],
-                address=form.cleaned_data['address'],
-                birthday=form.cleaned_data['birthday'],
-                notes=form.cleaned_data['notes'],
-                type=form.cleaned_data['type'],
-                frequency=form.cleaned_data['frequency'],
-                linkedin=form.cleaned_data['linkedin'],
-                facebook=form.cleaned_data['facebook'],
-                instagram=form.cleaned_data['instagram'],
-                twitter=form.cleaned_data['twitter'],
-                creator_user=logged_in_user,
-            )
+            contact = form.save(commit=False)
+            contact.creator_user = request.user
+            contact.save()
             return redirect('/')
+        else:
+            form = AddContactForm()
+        context = {
+            'form': form,
+        }
+        return render(request, 'pages/form_page.html', context)
+            # Contact.objects.create(
+            #     first_name=form.cleaned_data['first_name'],
+            #     last_name=form.cleaned_data['last_name'],
+            #     email=form.cleaned_data['email'],
+            #     picture=form.cleaned_data['picture'],
+            #     phone=form.cleaned_data['phone'],
+            #     address=form.cleaned_data['address'],
+            #     birthday=form.cleaned_data['birthday'],
+            #     notes=form.cleaned_data['notes'],
+            #     type=form.cleaned_data['type'],
+            #     frequency=form.cleaned_data['frequency'],
+            #     linkedin=form.cleaned_data['linkedin'],
+            #     facebook=form.cleaned_data['facebook'],
+            #     instagram=form.cleaned_data['instagram'],
+            #     twitter=form.cleaned_data['twitter'],
+            #     creator_user=logged_in_user,
+            # )
+            # return redirect('/')
     else:
         form = AddContactForm()
     context = {

@@ -1,35 +1,18 @@
 from django import forms
 from django.core.validators import validate_email
 import re
+from .models import Contact
+
 
 EMAIL_REGEX = r"(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)"
 
-class AddFriendForm(forms.Form):
-    title = forms.CharField()
-    description = forms.CharField(widget=forms.Textarea)
 
-RELATION = [
-    ('friend', 'Friend'),
-    ('business', 'Business Contact'),
-    ('volunteer', "Volunteer"),
-    ('student', "Student"),
-    ('custom', "Custom"),
-]
+class AddContactForm(forms.ModelForm):
+    class Meta:
+        model = Contact
+        fields = ['first_name', 'last_name', 'picture', 'email', 'notes', 'phone', 'address', 'birthday', 'type', 'frequency', 'linkedin', 'facebook',  'instagram', 'twitter']
+    notes = forms.CharField(widget=forms.Textarea)
 
-FREQUENCY = [
-    ('daily', 'Daily'),
-    ('weekly', 'Weekly'),
-    ('monthly', "Monthly"),
-    ('quarterly', "Quarterly"),
-    ('yearly', "Yearly"),
-    ('custom', "Custom"),
-]
-
-class AddContactForm(forms.Form):
-    first_name = forms.CharField()
-    last_name = forms.CharField()
-    picture = forms.ImageField(required=False, allow_empty_file=True) 
-    email = forms.EmailField()
     def clean_email(self):
             email = self.cleaned_data.get('email')
 
@@ -38,14 +21,27 @@ class AddContactForm(forms.Form):
 
             return email
 
-    phone = forms.CharField(required=False)
-    address = forms.CharField(required=False)
-    birthday = forms.DateField(required=False)
-    notes = forms.CharField(widget=forms.Textarea)
-    type = forms.ChoiceField(choices=RELATION)
-    frequency = forms.ChoiceField(choices=FREQUENCY)
-    linkedin = forms.URLField(required=False)
-    facebook = forms.URLField(required=False)
-    instagram = forms.URLField(required=False)
-    twitter = forms.URLField(required=False)
+# class AddFriendForm(forms.Form):
+#     title = forms.CharField()
+#     description = forms.CharField(widget=forms.Textarea)
+
+
+# class AddContactForm(forms.Form):
+#     first_name = forms.CharField()
+#     last_name = forms.CharField()
+#     picture = forms.ImageField(required=False, allow_empty_file=True)
+
+        
+#     email = forms.EmailField()
+
+#     phone = forms.CharField(required=False)
+#     address = forms.CharField(required=False)
+#     birthday = forms.DateField(required=False)
+#     notes = forms.CharField(widget=forms.Textarea)
+#     type = forms.ChoiceField(choices=RELATION)
+#     frequency = forms.ChoiceField(choices=FREQUENCY)
+#     linkedin = forms.URLField(required=False)
+#     facebook = forms.URLField(required=False)
+#     instagram = forms.URLField(required=False)
+#     twitter = forms.URLField(required=False)
 
