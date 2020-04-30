@@ -69,12 +69,6 @@ def edit_contact(request, contact_id):
     }
     return render(request, 'pages/edit_contact.html', context)
 
-# def reminder():
-#     days = 1
-#     week = 7
-#     month = 30
-#     reminder = days * input(int)
-#     snooze = days + 1
 
 @login_required
 def contact_delete(request, contact_id):
@@ -175,17 +169,47 @@ def contact_delete(request, contact_id):
 #     new_friend = friend_list.objects.get(id=list_id)
 
 
+# @login_required
+# @login_required
+# def user_dashboard(request):
+#     context={
 
-@login_required
-def user_dashboard(request):
-    context={
-
-    }
-    return render(request, 'pages/dashboard.html', context)
+#     }
+#     return render(request, 'pages/dashboard.html', context)
 # @login_required
 # def snooze(request, friend_id):
     
 
 #     return redirect('/')
 
+# @login_required
+def hi_friends(request):
+    if request.method == 'GET':
+        contact_lists = Contact.objects.all().order_by(Lower('last_name'))
+        for contact_lists:
+            reminder = contact_lists.frequency
+            x = reminder
+            contact_date = x - 1
+            if contact_date == 0:
+ context = {
+        'contact_list': contact_lists,
+        # 'all_friends': contacts,
+    }
+    return render(request, 'pages/home.html', context)
+
+# look at contact method
+def snooze(request, contact_id): 
+    Contact.frequncy += 1
+
+# look at twitten (like the editing is snooze)
+
+# def hi_friends(request):
+#     if request.method == 'GET':
+#         contact_list = Contact.objects.all().order_by(Lower('last_name'))
+
+#         if contact_list.frequency
+
+
+             
+        
 
