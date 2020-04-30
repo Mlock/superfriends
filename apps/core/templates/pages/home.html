@@ -8,9 +8,23 @@
 {% if user.is_authenticated %}
 <h2>Say hi to your friends</h2>
 
-    {% for friend in hi_friends %}
-    {% for contact in contact list %}
-    {% if contact frequncy = 0 %}
+{% for contact in all_contact_lists %}
+    <!-- Loop through Contacts and display it -->
+
+    <div class="media mt-3 border rounded shadow-sm">
+
+
+        <!-- This shows the contacts name  as a link to the full details of that contact -->
+        <div class="media-body ml-3 mt-1 mb-1 position-relative">
+            <h5><a href="/contact/{{ contact.id }}/" class="stretched-link">{{ contact.first_name|title }} {{ contact.last_name|title }}<span class="badge badge-primary ml-2">{{ contact.type|title }}</span></a></h5>
+        </div>
+
+        <!-- This shows the creation date of the contact -->
+        <div>
+            <p>Added on {{ contact.created|date:"F jS Y" }}</p> 
+        </div>
+    </div>
+{% endfor %}
     <!-- Loop through friends that need to be contacted and display here -->
 
     <div class="media mt-3 border rounded shadow-sm">
@@ -47,7 +61,6 @@
             </a>
         </div>
     </div>
-    {% endfor %}
 {% else %}
 <h1> Get closer to your friends</h1>
 {% endif %}
