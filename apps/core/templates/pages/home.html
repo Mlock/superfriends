@@ -1,16 +1,17 @@
 {% extends "base.html" %}
 
 {% block title %}
-    Superfriends - Your Contacts
+    Superfriends - Your Friends
 {% endblock title %}
 
 {% block content %}
 
+{% if user.is_authenticated %}
+
 <h2>Your Contacts</h2>
 
-{% for contact in all_contact_lists %}
-    <!-- Loop through Contacts and display it -->
-
+{% for contact in page_obj %}
+    {# Each "contact" is a Contact model object. #}
     <div class="media mt-3 border rounded shadow-sm">
 
 
@@ -21,11 +22,28 @@
 
         <!-- This shows the creation date of the contact -->
         <div>
-            <p>Added on {{ contact.created|date:"F jS Y" }}</p> 
+            <p>Added on {{ contact.created|date:"n/j/Y" }}</p> 
         </div>
     </div>
 {% endfor %}
+<div class="pagination">
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ page_obj.previous_page_number }}">&lsaquo; previous</a>
+        {% endif %}
 
+        <span class="current">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+        </span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">next &rsaquo;</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+</div>
+{% endif %}
 
 {% endblock content %}
 
