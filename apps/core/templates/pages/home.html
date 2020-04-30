@@ -5,8 +5,8 @@
 {% endblock title %}
 
 {% block content %}
-{% if user.is_authenticated and hi_friends.frequency == 0  %}
-{% for friend in hi_friends %}
+{% if user.is_authenticated and hi_contacts.frequency <= 0  %}
+{% for contact in hi_contacts %}
 
 <!-- This should show up only if friends need to be contacted-->
 <h2>Say hi to your friends</h2>
@@ -20,9 +20,9 @@
              just show the votes -->
         <div class="btn-group btn-group-sm p-1">
            <!-- {% for contacted_date} -->
-            <a class="btn btn-outline-dark disabled">Snooze</a>
+            <a href="/contact/record_snooze/{{ friend.id }}/" class="btn btn-outline-dark disabled">Snooze</a>
             <!-- if snooze is clicked, add a day to freuency of contact and hide contact -->
-            <a class="btn btn-outline-dark disabled">Contacted</a>
+            <a href="/contact/record_contact_date/{{ friend.id }}/" class="btn btn-outline-dark disabled">Contacted</a>
             
         </div>
 
@@ -44,7 +44,7 @@
     </div>
     {% endfor %}
 {% else %}
-<h1> Get closer to your friends</h1>
+<h1> Grow your relationships</h1>
 {% endif %}
 </br>
 </br>

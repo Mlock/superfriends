@@ -63,7 +63,7 @@ def contact_delete(request, contact_id):
     return redirect('/')
 
 @login_required
-def hi_friends(request):
+def hi_contacts(request):
     if request.method == 'POST':
         contact_lists = Contact.objects.all().order_by(Lower('last_name'))
         for contact in contact_lists:
