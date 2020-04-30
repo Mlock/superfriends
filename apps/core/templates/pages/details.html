@@ -23,7 +23,8 @@
         <img src="/static/images/default.jpg"  width="150px"/>
 
         {% endif %}
-        </div>
+
+    </div>
         <div class="col-sm">
         <p>Name: {{ contact_list.first_name }} {{ contact_list.last_name }}</p>
         <p>Email: {{ contact_list.email }}</p>
@@ -52,8 +53,15 @@
         <br /><br />
 
 
+
+        <a class="btn btn-lg btn-info" href="/contact/edit/{{ contact_list.id }}">Edit "{{contact_list.first_name }} {{contact_list.last_name }}"</a>
+        <br /><br />
+
         <a href="/contact/delete/{{ contact_list.id }}/" class="btn btn-outline-danger btn-sm">Delete "{{contact_list.first_name }} {{contact_list.last_name }}"</a>
-        </div>
+
+
+
+    </div>
     </div>
 
         

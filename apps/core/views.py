@@ -4,7 +4,7 @@ import datetime
 
 from apps.core.helpers import get_book_cover_url_from_api, redirect_back
 from apps.core.models import Contact
-from apps.core.forms import AddContactForm
+from apps.core.forms import AddContactForm, EditContactForm
 from django.db.models.functions import Lower
 
 
@@ -44,6 +44,30 @@ def contact_create(request):
     }
     return render(request, 'pages/form_page.html', context)
 
+def edit_contact(request, contact_id):
+    # Get the contact we are looking for
+
+    contact_to_edit = Contact.objects.get(id=contact_id)
+
+    if request.method == 'POST':
+
+        # Create a form instance and populate it with data from the request
+        form = EditContactForm(request.POST, request.FILES, instance=contact_to_edit)
+
+        if form.is_valid():
+            form.save()
+            print('this is a test')
+            return redirect('/')
+
+    else:
+        # A GET, create a pre-filled form with the instance.
+        form = EditContactForm(instance=contact_to_edit)
+        print('this is a different test')
+
+    context = {
+        'form': form,
+    }
+    return render(request, 'pages/edit_contact.html', context)
 
 # def reminder():
 #     days = 1
