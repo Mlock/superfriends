@@ -12,7 +12,7 @@ class AddContactForm(forms.ModelForm):
     class Meta:
         model = Contact
         fields = ['first_name', 'last_name', 'picture', 'email', 'notes', 'phone', 'address', 'birthday', 'type', 'frequency', 'linkedin', 'facebook',  'instagram', 'twitter']
-    notes = forms.CharField(widget=forms.Textarea)
+    notes = forms.CharField(widget=forms.Textarea, required=False)
 
     def clean_email(self):
             email = self.cleaned_data.get('email')
@@ -21,6 +21,13 @@ class AddContactForm(forms.ModelForm):
                 raise forms.ValidationError('Invalid email format')
 
             return email
+            
+class EditContactForm(forms.ModelForm):
+    class Meta:
+        model = Contact
+        fields = ['first_name', 'last_name', 'picture', 'email', 'notes', 'phone', 'address', 'birthday', 'type', 'frequency', 'linkedin', 'facebook',  'instagram', 'twitter']
+    notes = forms.CharField(widget=forms.Textarea)
+
 
 # class AddFriendForm(forms.Form):
 #     title = forms.CharField()

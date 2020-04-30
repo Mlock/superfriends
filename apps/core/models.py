@@ -24,7 +24,7 @@ RELATION = [
 class Contact(models.Model):
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
-    picture = models.ImageField(upload_to='./images/', blank=True, null=True) #, default='/media/images/default.png'
+    picture = models.ImageField(upload_to='./images/', blank=True, null=True)
     email = models.EmailField(blank=True, null=True, unique=True)
     phone = models.CharField(max_length=30, blank=True, null=True)
     address = models.CharField(max_length=300, blank=True, null=True)
