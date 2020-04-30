@@ -191,28 +191,6 @@ def snooze(request, contact_id):
 #         friend_list.save()
 #     return redirect_back(request)
 
-# # Psuedo code
-# if New friend added to friend_list, 
-# Set reminder to contact friend in 7 days
-# if snooze is selected, set reminder to contact friend in 24 hours
-
-# @login_required
-# def contact_friend(request, friend_id):
-#     new_friend = friend_list.objects.get(id=list_id)
-
-
-# @login_required
-# @login_required
-# def user_dashboard(request):
-#     context={
-
-#     }
-#     return render(request, 'pages/dashboard.html', context)
-# @login_required
-# def snooze(request, friend_id):
-    
-
-#     return redirect('/')
 
 
 
