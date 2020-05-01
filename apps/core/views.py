@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-import datetime
+from datetime import datetime, timedelta
 
 from apps.core.helpers import get_book_cover_url_from_api, redirect_back
 from apps.core.models import Contact
@@ -13,7 +13,7 @@ def contact_home(request):
     context = {
         'all_contact_lists': contact_lists,
     }
-    return render(request, 'pages/home.html', context)
+    return render(request, 'pages/home.html', context) #changed from home to work with
 
 def contact_details(request, contact_id):
     contact_list_requested = Contact.objects.get(id=contact_id)
@@ -78,6 +78,54 @@ def contact_delete(request, contact_id):
 
     return redirect('/')
 
+
+
+# jMc bgin
+# converts the string that was stored in the DB to a time delta
+# TODO frequency is likely best kept as an integer that gets converted to a time delta
+# and then there is an alternative option to make the next contact an exact date with a calendar picker
+# note: timedelta does not have values for year or month. As for Django DurationField, "on all databases 
+#       other than PostgreSQL, comparing the value of a DurationField to arithmetic on 
+#       DateTimeField instances will not work as expected", so I went with vanilla Python
+def get_interval (frequency):
+    
+    conversions = {
+        'daily' : timedelta(days=1),
+        'weekly' : timedelta(days=7),
+        'monthly' : timedelta(days=30),
+        'quarterly' : timedelta(day=90),
+        'yearly' : timedelta(days=365),
+        'custom' : 0,
+    }
+    return conversions[frequency]
+
+def get_contact_countdown (Contact):
+    contact_countdown = today - (freqConverter(Contact.frequency) + Contact.frequency_modified) 
+    return contact_countdown #integer?
+# write the logic that does the calculation. I need to know what today is vs. last modified + time delta
+# for loop that goes through list and then filters
+# TODO give the below a second integer input so that user can set their own threshold to be notified
+def get_contacts_due(contact_list):
+    filtered = []
+    for contact in contact_list:
+        if get_contact_countdown(contact) <= 3:
+            filtered.append(contact)
+    return filtered
+            
+# TODO skip function
+
+    # contact due in contact_countdown days
+    # render in red if negative #    
+
+#*** add logic to edit_contact that triggers an update to frequency_modified when it's changed
+# we don;t actually need tz if everything is relative to utc
+# I'd rather save freq as integer
+
+#jMc pseudo
+# if you click snooze, time delta would be one day, last modified also updates, snooze adds a day at a time
+# if you click contacted, last modified updates to today, time delta stays the same
+# you can change time delta at anytime, and it would update last modified
+# jMc end
 
 # @login_required
 # def friend_list_create_book(request, friend_id):
