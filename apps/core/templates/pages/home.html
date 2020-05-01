@@ -5,8 +5,37 @@
 {% endblock title %}
 
 {% block content %}
-<h2>Your Contacts</h2>
+<!-- if the list has one or more items if due_contact_list.length > 0... -->
+<h2>Due Contacts, Reach out!</h2>
+<h3>Number due: {{ due_contact_list.length }}</h3>
 
+{% for contact, countdown in filtered_countdowns %}
+    <!-- Loop through Contacts and display it -->
+
+    <div class="media mt-3 border rounded shadow-sm">
+
+
+        <!-- This shows the contacts name  as a link to the full details of that contact -->
+        <div class="media-body ml-3 mt-1 mb-1 position-relative">
+            <h5><a href="/contact/{{ contact.id }}/" class="stretched-link">{{ contact.first_name|title }} {{ contact.last_name|title }}<span class="badge badge-primary ml-2">{{ contact.type|title }}</span></a></h5>
+        </div>
+
+        
+        <div>
+            <!-- This shows the last modified -->
+            <p>last modified: {{ contact.last_modified|date:"F jS Y" }}</p>
+            <!-- This shows countdown value -->
+            <p>countdown: {{ countdown }}</p>
+            <!-- This shows the creation date of the contact -->
+            <p>Added on {{ contact.created|date:"F jS Y" }}</p> 
+        </div>
+    </div>
+{% endfor %}
+
+<!-- else tell user that no contacts are due AND show the below -->
+
+
+<h2>Your Contacts</h2>
 {% for contact in all_contact_lists %}
     <!-- Loop through Contacts and display it -->
 

@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 
 from apps.core.helpers import get_book_cover_url_from_api, redirect_back
 from apps.core.models import Contact
@@ -9,11 +9,22 @@ from django.db.models.functions import Lower
 
 
 def contact_home(request):
+    # jmc adding the filtered list part ...duplicating and then manipulating the above...,
+    # need to add it so that it shows up in the template
+    due_contact_list = get_contacts_due(Contact.objects.all())
+    # original
+    
     contact_lists = Contact.objects.all().order_by(Lower('last_name'))
+    countdowns = [get_contact_countdown(c) for c in contact_lists]
+    filtered_countdowns = [get_contact_countdown(c) for c in due_contact_list]
+
     context = {
         'all_contact_lists': contact_lists,
+        'due_contact_list' : due_contact_list,
+        'countdowns' : zip(contact_lists, countdowns),
+        'filtered_countdowns' : zip(due_contact_list, filtered_countdowns),
     }
-    return render(request, 'pages/home.html', context) #changed from home to work with
+    return render(request, 'pages/home.html', context)
 
 def contact_details(request, contact_id):
     contact_list_requested = Contact.objects.get(id=contact_id)
@@ -93,15 +104,31 @@ def get_interval (frequency):
         'daily' : timedelta(days=1),
         'weekly' : timedelta(days=7),
         'monthly' : timedelta(days=30),
-        'quarterly' : timedelta(day=90),
+        'quarterly' : timedelta(days=90),
         'yearly' : timedelta(days=365),
         'custom' : 0,
     }
     return conversions[frequency]
 
-def get_contact_countdown (Contact):
-    contact_countdown = today - (freqConverter(Contact.frequency) + Contact.frequency_modified) 
-    return contact_countdown #integer?
+# for when intervals are stored as integers
+def set_interval (frequency):
+    conversions = {     
+        'daily' : 1,
+        'weekly' : 7,
+        'monthly' : 30,
+        'quarterly' : 90,
+        'yearly' : 365,
+        'custom' : 14, # arbitrary number until this is worked out
+    }
+    return conversions[frequency]
+
+# this function can be used to display countown; it's being used in the filter - jMc
+def get_contact_countdown (contact):
+    contact_countdown = datetime.now(timezone.utc) - (get_interval(contact.frequency) + contact.last_modified) #will be frequency_modified once DB is updated 
+    return contact_countdown.days
+    
+
+
 # write the logic that does the calculation. I need to know what today is vs. last modified + time delta
 # for loop that goes through list and then filters
 # TODO give the below a second integer input so that user can set their own threshold to be notified
@@ -111,6 +138,7 @@ def get_contacts_due(contact_list):
         if get_contact_countdown(contact) <= 3:
             filtered.append(contact)
     return filtered
+    #python has built in list filtering
             
 # TODO skip function
 
@@ -126,6 +154,9 @@ def get_contacts_due(contact_list):
 # if you click contacted, last modified updates to today, time delta stays the same
 # you can change time delta at anytime, and it would update last modified
 # jMc end
+
+
+
 
 # @login_required
 # def friend_list_create_book(request, friend_id):
