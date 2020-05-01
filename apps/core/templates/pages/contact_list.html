@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}Your Contact List{% endblock %}
+
+{% block content %}
+
+<h1>You have {{ all_contact_lists|length }} contacts total.</h1>
+
+<div class="row">
+    {% for contact in all_contact_lists  %}
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title">{{ contact.first_name }} {{ contact.last_name }}</h3>
+                    <ul class="list-group">
+                        <li class="list-group-item list"><strong>Email</strong> {{ contact.email }}</li>
+                        <li class="list-group-item list"><strong>Notes</strong> {{ contact.notes }}</li>
+                        <li class="list-group-item list"><strong>Last time you connected</strong> {{ contact.last_modified }}</li>
+                        <li class="btn btn-primary" a href="{{ contact.email }}">Say hello</li>
+            
+                    </ul>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+{% endblock content %}

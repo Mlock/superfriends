@@ -78,6 +78,14 @@ def contact_delete(request, contact_id):
 
     return redirect('/')
 
+@login_required
+def all_contacts(request):
+    contact_lists = Contact.objects.all().order_by(Lower('last_name'))
+    context = {
+        'all_contact_lists': contact_lists,
+    }
+    return render(request, 'pages/contact_list.html', context)
+
 
 # @login_required
 # def friend_list_create_book(request, friend_id):
