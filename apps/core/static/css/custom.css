@@ -3,9 +3,18 @@
 .navbar {
     background: linear-gradient(135deg, #f2f9fe 0%, #d6f0fd 100%);
 }
+.home {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    }
 
 .card-user {
     max-width: 80px;
+}
+.lead {
+    color: #000;
 }
 
 .navbar-avatar {
@@ -13,3 +22,4 @@
     margin-top: -10px;
     margin-bottom: -10px;
 }
+
