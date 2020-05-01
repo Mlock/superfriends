@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load static i18n %}
+
+<!-- <!-- {% block title %}
+    Superfriends - Your Friends
+{% endblock title %} -->
+
+{% block content %}
+{% if user.is_authenticated %}
+{% for contact in hi_contacts %}
+
+<!-- <h2>Contact List</h2>  -->
+
+{% for friend in all_friend_lists %}
+    <!-- Loop through each Reading List and display it -->
+
+    <div class="media mt-3 border rounded shadow-sm">
+
+        <!-- This shows the "name" of the Reading List as a link to the full
+             details of that list -->
+        <div class="media-body ml-3 mt-1 mb-1 position-relative">
+            <h5><a href="/friend/{{ friend.id }}/" class="stretched-link">{{ friend.name }} <span class="badge badge-primary ml-2">{{ friend.type|title }}</span></a></h5>
+        </div>
+
+        <!-- This shows the creation date of the list, along with the avatar
+             and username of the creator -->
+        <div>
+            Added on {{ friend.created|date:"F jS Y" }} 
+            <a class="btn btn-link" href="/account/users/{{ friend.creator_user.username }}/" >
+                {{ friend.creator_user }}
+                <img src="{{ friend.creator_user.gravatar }}" class="navbar-avatar" />
+            </a>
+        </div>
+    </div>
+{% endfor %}
+
+
+{% endblock content %}
+

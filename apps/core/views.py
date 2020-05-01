@@ -55,6 +55,16 @@ def contact_create(request):
     return render(request, 'pages/form_page.html', context)
 
 @login_required
+def contact_list_page(request, contact_id):
+    contact_list_requested = Contact.objects.get(id=contact_id)
+    contacts = IndividualContact.objects.filter(contact_list=contact_list_requested)
+    context = {
+        'contact_list': contact_list_requested,
+        'all_friends': contacts,
+    }
+    return render(request, 'pages/contacts.html', context)
+
+@login_required
 def contact_delete(request, contact_id):
     contact = Contact.objects.get(id=contact_id)
     if contact.creator_user == request.user:
@@ -84,7 +94,6 @@ def contacted_date(request, contact_id):
     return redirect(request.META.get('HTTP_REFERER', '/'))
 
 
-
 def snooze(request, contact_id):
     contact = Contact.objects.get(id=contact_id)
 #    make a form that doesn't have any fields and make a submit button. Form action is pointing to the url that hits the snooze function
@@ -92,6 +101,8 @@ def snooze(request, contact_id):
        snooze_date = timezone.now()
     )
     return redirect(request.META.get('HTTP_REFERER', '/'))
+
+
 
 
 

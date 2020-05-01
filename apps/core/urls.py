@@ -7,6 +7,7 @@ urlpatterns = [
     path('', views.contact_home, name="home"),
     path('contact/<int:contact_id>/', views.contact_details),
     path('contact/create/', views.contact_create),
+    path('contact-list/', views.contact_list_page, name="contact-list"),
     path('contact/delete/<int:contact_id>/', views.contact_delete),
 
     # # CRUD views for editing Books within ReadingLists
