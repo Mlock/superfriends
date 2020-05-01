@@ -12,7 +12,7 @@
             <a href="{% url "view_profile" user.username %}">
                 <div class="card card-signin card-user my-5">
                     <img src="{{ user.gravatar }}" />
-                    <h5 class="card-title text-center">@{{ user.username }}</h5>
+                    <h5 class="card-title text-center">{{ user.username }}</h5>
                 </div>
             </a>
         {% endfor %}

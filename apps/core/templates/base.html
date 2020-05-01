@@ -13,16 +13,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
-
-    <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.4.1/minty/bootstrap.min.css" rel="stylesheet" integrity="sha384-4HfFay3AYJnEmbgRzxYWJk/Ka5jIimhB/Fssk7NGT9Tj3rkEChpSxLK0btOGzf2I" crossorigin="anonymous">
+    <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.4.1/united/bootstrap.min.css" rel="stylesheet">
     <link href="{% static 'css/signinform.css' %}" rel="stylesheet">
     <link href="{% static 'css/custom.css' %}" rel="stylesheet" type="text/css">
 
   </head>
 
 <body>
-
-<nav class="navbar navbar-expand-md shadow-sm">
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
     <div class="container">
         <a class="navbar-brand" href="/">Superfriends</a>
 
@@ -35,12 +33,17 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 {% if request.user.is_authenticated %}
-                    <li class="nav-item ml-5">
-                        <a href="/contact/create/" class="btn btn-primary">
-                            + Add a new contact
-                        </a>
-                    </li>
-                {% endif %}
+                <li class="nav-item ml-5">
+                    <a href="/users/{{ user.id }}" class="btn btn-info">
+                        Your contacts
+                    </a>
+                </li>
+                <li class="nav-item ml-2">
+                    <a href="/contact/create/" class="btn btn-info">
+                        + Add a new contact
+                    </a>
+                </li>
+        {% endif %}
             </ul>
             <ul class="navbar-nav ml-auto">
 
@@ -70,7 +73,7 @@
 
 {# Only show this if 1) user is logged out, and 2) we're not on a page with a form #}
 {% if not request.user.is_authenticated and not form %}
-    <div class="jumbotron jumbotron-fluid home shadow">
+    <div class="bg-info text-light mb-5 pt-3 pb-3 shadow">
         <div class="container">
             <h1 class="display-4">Superfriends</h1>
             <p class="lead">Welcome to <em>Superfriends</em>, an app to help you stay in touch with the people in your life.</p>

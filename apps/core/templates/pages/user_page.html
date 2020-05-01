@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% load static i18n %}
+
+
+{% block content %}
+
+<h2>{{ user.username }}'s Contacts</h2>
+
+{% for contact in page_obj %}
+<div class="media mt-3 border rounded shadow-sm">
+    
+    {% if contact.picture %}
+    <img src="{{ contact.picture.url }}" class="thumb">
+    {% else %}
+    
+    <img src="/static/images/default.jpg"  class="thumb"/>
+
+    {% endif %}
+
+
+    <!-- This shows the contacts name  as a link to the full details of that contact -->
+    <div class="media-body ml-3 mt-1 mb-1 position-relative">
+        <h5><a href="/contact/{{ contact.id }}/" class="stretched-link">{{ contact.first_name|title }} {{ contact.last_name|title }}<span class="badge badge-pill badge-light ml-2">{{ contact.type|title }}</span></a></h5>
+    </div>
+
+    <!-- This shows the creation date of the contact -->
+    <div>
+        <p class="mt-1"><button type="button" class="btn btn-primary">Time until next contact: {{ contact.frequency }}</button></p> 
+
+    </div>
+</div>
+{% endfor %}
+
+    <!-- pagination starts here -->
+    <div>
+        <br />
+    {% if page_obj.has_other_pages %}
+      <ul class="pagination pagination-sm">
+        {% if page_obj.has_previous %}
+          <li><a class="page-link" href="?page={{ page_obj.previous_page_number }}">&laquo;</a></li>
+        {% else %}
+          <li class="disabled"><span class="page-link">&laquo;</span></li>
+        {% endif %}
+        {% for i in page_obj.paginator.page_range %}
+          {% if page_obj.number == i %}
+            <li class="page-item active"><span class="page-link">{{ i }} <span class="sr-only">(current)</span></span></li>
+          {% else %}
+            <li><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+          {% endif %}
+        {% endfor %}
+        {% if page_obj.has_next %}
+          <li><a class="page-link" href="?page={{ page_obj.next_page_number }}">&raquo;</a></li>
+        {% else %}
+          <li class="disabled"><span class="page-link">&raquo;</span></li>
+        {% endif %}
+      </ul>
+      {% endif %}
+    </div>
+    <!-- pagination ends here -->
+    
+    {% endblock content %}

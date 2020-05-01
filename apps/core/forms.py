@@ -11,7 +11,7 @@ EMAIL_REGEX = r"(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)"
 class AddContactForm(forms.ModelForm):
     class Meta:
         model = Contact
-        fields = ['first_name', 'last_name', 'picture', 'email', 'notes', 'phone', 'address', 'birthday', 'type', 'frequency', 'linkedin', 'facebook',  'instagram', 'twitter']
+        fields = ['first_name', 'last_name', 'picture', 'email', 'notes', 'phone', 'address', 'birthday', 'type', 'frequency', 'website', 'linkedin', 'facebook',  'instagram', 'twitter',  'github',]
     notes = forms.CharField(widget=forms.Textarea, required=False)
 
     def clean_email(self):
@@ -25,8 +25,8 @@ class AddContactForm(forms.ModelForm):
 class EditContactForm(forms.ModelForm):
     class Meta:
         model = Contact
-        fields = ['first_name', 'last_name', 'picture', 'email', 'notes', 'phone', 'address', 'birthday', 'type', 'frequency', 'linkedin', 'facebook',  'instagram', 'twitter']
-    notes = forms.CharField(widget=forms.Textarea)
+        fields = ['first_name', 'last_name', 'picture', 'email', 'notes', 'phone', 'address', 'birthday', 'type', 'frequency', 'website', 'linkedin', 'facebook',  'instagram', 'twitter', 'github',]
+    notes = forms.CharField(widget=forms.Textarea, required=False)
 
 
 # class AddFriendForm(forms.Form):
