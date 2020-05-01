@@ -124,7 +124,7 @@ def set_interval (frequency):
 
 # this function can be used to display countown; it's being used in the filter - jMc
 def get_contact_countdown (contact):
-    contact_countdown = datetime.now(timezone.utc) - (get_interval(contact.frequency) + contact.last_modified) #will be frequency_modified once DB is updated 
+    contact_countdown = (get_interval(contact.frequency) + contact.last_modified) - datetime.now(timezone.utc) #will be frequency_modified once DB is updated 
     return contact_countdown.days
     
 
