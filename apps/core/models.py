@@ -36,11 +36,12 @@ class Contact(models.Model):
     facebook = models.URLField(blank=True, null=True)
     instagram = models.URLField(blank=True, null=True)
     twitter = models.URLField(blank=True, null=True)
+    website = models.URLField(blank=True, null=True)
+    github = models.URLField(blank=True, null=True)
     created = models.DateTimeField(auto_now_add=True) # Add current date
     last_modified = models.DateTimeField(auto_now=True)
 
     creator_user = models.ForeignKey(User, on_delete=models.CASCADE)
-
 
 # class IndividualContact(models.Model):
 #     contact_list = models.ForeignKey(

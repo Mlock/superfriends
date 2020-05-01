@@ -7,7 +7,7 @@
 {% block content %}
 <h1>
     {{ contact_list.first_name }} {{ contact_list.last_name }}
-    <span class="badge badge-info">{{ contact_list.type }}</span>
+    <span class="badge badge-pill badge-light">{{ contact_list.type|title }}</span>
 
 </h1>
 
@@ -27,34 +27,42 @@
     </div>
         <div class="col-sm">
         <p>Name: {{ contact_list.first_name }} {{ contact_list.last_name }}</p>
-        <p>Email: {{ contact_list.email }}</p>
+        <p>Email: <a href="mailto:{{ contact_list.email }}">{{ contact_list.email }}</a></p>
         <p>Phone: {{ contact_list.phone }}</p>
         <p>Address: {{ contact_list.address }}</p>
         <p>Birthday: {{ contact_list.birthday }}</p>
         <p>Notes: {{ contact_list.notes }}</p>
         <p>Frequency: {{ contact_list.frequency }}</p>
-
+        <p>Added on: {{ contact_list.created|date:"F jS, Y" }}</p>
+        {% if contact_list.website %}
+        <a href="{{ contact_list.website }}" title="Website" target="_blank"><img src="/static/images/website.png" height="20px"></a>
+        {% else %}
+        {% endif %}
         {% if contact_list.linkedin %}
-        <a href="{{ contact_list.linkedin }}" target="_blank"><img src="/static/images/linkedin.png" height="20px"></a>
+        <a href="{{ contact_list.linkedin }}" title="LinkedIn" target="_blank"><img src="/static/images/linkedin.png" height="20px"></a>
         {% else %}
         {% endif %}
         {% if contact_list.facebook %}
-        <a href="{{ contact_list.facebook }}" target="_blank"><img src="/static/images/facebook.png" height="20px"></a>
+        <a href="{{ contact_list.facebook }}" title="Facebook" target="_blank"><img src="/static/images/facebook.png" height="20px"></a>
         {% else %}
         {% endif %}
         {% if contact_list.instagram %}
-        <a href="{{ contact_list.instagram }}" target="_blank"><img src="/static/images/instagram.png" height="20px"></a>
+        <a href="{{ contact_list.instagram }}" title="Instagram" target="_blank"><img src="/static/images/instagram.png" height="20px"></a>
         {% else %}
         {% endif %}
         {% if contact_list.twitter %}
-        <a href="{{ contact_list.twitter }}" target="_blank"><img src="/static/images/twitter.png" height="20px"></a>
+        <a href="{{ contact_list.twitter }}" title="Twitter" target="_blank"><img src="/static/images/twitter.png" height="20px"></a>
+        {% else %}
+        {% endif %}
+        {% if contact_list.github %}
+        <a href="{{ contact_list.github }}" title="GitHub" target="_blank"><img src="/static/images/github.png" height="20px"></a>
         {% else %}
         {% endif %}
         <br /><br />
 
 
 
-        <a class="btn btn-lg btn-info" href="/contact/edit/{{ contact_list.id }}">Edit "{{contact_list.first_name }} {{contact_list.last_name }}"</a>
+        <a class="btn btn-sm btn-info" href="/contact/edit/{{ contact_list.id }}">Edit "{{contact_list.first_name }} {{contact_list.last_name }}"</a>
         <br /><br />
 
         <a href="/contact/delete/{{ contact_list.id }}/" class="btn btn-outline-danger btn-sm">Delete "{{contact_list.first_name }} {{contact_list.last_name }}"</a>
