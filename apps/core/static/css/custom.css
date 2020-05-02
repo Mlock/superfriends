@@ -7,6 +7,9 @@
 .card-user {
     max-width: 80px;
 }
+.lead {
+    color: #000;
+}
 
 .navbar-avatar {
     height: 50px;

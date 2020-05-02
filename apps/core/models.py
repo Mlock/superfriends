@@ -32,6 +32,12 @@ class Contact(models.Model):
     notes = models.CharField(max_length=500, blank=True, null=True)
     type = models.CharField(max_length=64, choices=RELATION)
     frequency = models.CharField(max_length=64, choices=FREQUENCY)
+
+    # need to update form input for the below
+    # frequency = models.IntegerField(choices=FREQUENCY)
+
+    frequency_modified = models.DateTimeField(null=True) # updates only if save is clicked AND frequency has been updated - jMc
+    snooze = models.DateTimeField(null=True) # date modified + snooze value - jMc
     linkedin = models.URLField(blank=True, null=True)
     facebook = models.URLField(blank=True, null=True)
     instagram = models.URLField(blank=True, null=True)
