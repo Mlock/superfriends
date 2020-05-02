@@ -33,18 +33,11 @@ class Contact(models.Model):
     type = models.CharField(max_length=64, choices=RELATION)
     frequency = models.CharField(max_length=64, choices=FREQUENCY)
 
-    # new version
-
     # need to update form input for the below
     # frequency = models.IntegerField(choices=FREQUENCY)
 
-    # this updates only if save is clicked AND frequency has been updated
-    # frequency_modified = models.DurationField()
-
-    # snooze should not affect the due date, only hide it from the displayed list
-    # so it needs to be a separate value
-    # snooze = models.DateTimeField() # Add current date to the number of times pushed?
-
+    frequency_modified = models.DateTimeField(null=True) # updates only if save is clicked AND frequency has been updated - jMc
+    snooze = models.DateTimeField(null=True) # date modified + snooze value - jMc
     linkedin = models.URLField(blank=True, null=True)
     facebook = models.URLField(blank=True, null=True)
     instagram = models.URLField(blank=True, null=True)

@@ -24,11 +24,18 @@
         <div>
             <!-- This shows the last modified -->
             <p>last modified: {{ contact.last_modified|date:"F jS Y" }}</p>
-            <!-- This shows countdown value -->
+            <p>frequency modified: {{ contact.frequency_modified|date:"F jS Y" }}</p>
+            <!-- This shows countdown value, this token is available for both filtered & not filtered lists -->
             <p>countdown: {{ countdown }}</p>
             <!-- This shows the creation date of the contact -->
             <p>Added on {{ contact.created|date:"F jS Y" }}</p> 
         </div>
+        <form action="." method="POST" >
+            <div class="btn-group btn-group-sm p-1">
+                <a class="btn btn-outline-dark">Snooze</a> <!-- click adds one day to today and saves snooze value -->
+                <a class="btn btn-outline-dark">Contacted</a> <!-- click updates -->
+            </div>
+        </form>
     </div>
 {% endfor %}
 

@@ -66,6 +66,11 @@ def edit_contact(request, contact_id):
         form = EditContactForm(request.POST, request.FILES, instance=contact_to_edit)
 
         if form.is_valid():
+            # check to see if frequency has changed - jMc
+            if form.has_changed() and 'frequency' in form.changed_data:
+                contact = form.save(commit=False)
+                contact.frequency_modified = datetime.now()
+                contact.save()    
             form.save()
             print('this is a test')
             return redirect('/')
@@ -124,7 +129,8 @@ def set_interval (frequency):
 
 # this function can be used to display countown; it's being used in the filter - jMc
 def get_contact_countdown (contact):
-    contact_countdown = (get_interval(contact.frequency) + contact.last_modified) - datetime.now(timezone.utc) #will be frequency_modified once DB is updated 
+    reference_date = contact.frequency_modified if contact.frequency_modified is not None else contact.last_modified
+    contact_countdown = (get_interval(contact.frequency) + reference_date) - datetime.now(timezone.utc) #will be frequency_modified once DB is updated 
     return contact_countdown.days
     
 
@@ -135,7 +141,7 @@ def get_contact_countdown (contact):
 def get_contacts_due(contact_list):
     filtered = []
     for contact in contact_list:
-        if get_contact_countdown(contact) <= 3:
+        if get_contact_countdown(contact) <= 3: # && snooze is in the past
             filtered.append(contact)
     return filtered
     #python has built in list filtering
@@ -149,8 +155,12 @@ def get_contacts_due(contact_list):
 # we don;t actually need tz if everything is relative to utc
 # I'd rather save freq as integer
 
-#jMc pseudo
 # if you click snooze, time delta would be one day, last modified also updates, snooze adds a day at a time
+def save_snooze(): #onclick
+    snooze = datetime.now(timezone.utc) + timedelta(days=1)
+    return snooze
+
+#jMc pseudo
 # if you click contacted, last modified updates to today, time delta stays the same
 # you can change time delta at anytime, and it would update last modified
 # jMc end
