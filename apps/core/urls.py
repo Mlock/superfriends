@@ -10,6 +10,7 @@ urlpatterns = [
     path('contact/delete/<int:contact_id>/', views.contact_delete),
     path('contact/edit/<int:contact_id>/', views.edit_contact),
     path('users/', views.user_page, name="user_page"),
+    path('contact/update_contacted/<int:contact_id>/', views.update_contacted),
 
     # # CRUD views for editing Books within ReadingLists
     # path('friend-create/<int:friend_id>/', views.friend_list_create_book),

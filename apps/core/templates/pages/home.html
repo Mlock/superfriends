@@ -34,14 +34,10 @@
         <!-- This shows the creation date of the contact -->
         <p>Added on {{ contact.created|date:"F jS Y" }}</p>
     </div>
-    <form action="." method="POST">
-        <div class="btn-group btn-group-sm p-1">
+      <div class="btn-group btn-group-sm p-1">
+        <a  class="btn btn-outline-dark" href="/contact/update_contacted/{{ contact.id }}/">Contacted</a>
         <a class="btn btn-outline-dark">Snooze</a>
-        <!-- click adds one day to today and saves snooze value -->
-        <a class="btn btn-outline-dark">Contacted</a>
-        <!-- click updates -->
-        </div>
-    </form>
+      </div>
     </div>
     {% endfor %}
 
