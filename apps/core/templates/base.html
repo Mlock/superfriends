@@ -7,7 +7,7 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>
         {% block title %}
-            Superfriends 
+             Superfriends
         {% endblock title %}
     </title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -74,13 +74,13 @@
 
 {# Only show this if 1) user is logged out, and 2) we're not on a page with a form #}
 {% if not request.user.is_authenticated and not form %}
-    <div class="bg-info text-light mb-5 pt-3 pb-3 shadow">
+    <div class="bg-info text-light mb-5 p-4 pt-3 pb-3 shadow">
         <div class="container">
-            <h1 class="display-4">Superfriends</h1>
-            <p class="lead">Welcome to <em>Superfriends</em>, an app to help you stay in touch with the people in your life.</p>
+            <p class="lead">The app that helps ordinary people keep in touch with their communities.</p>
+            <hr class="my-4">
             <p>
-                <a class="btn btn-lg btn-secondary" href="{% url 'signup' %}">Create an account today!</a>
-                <a class="btn btn-link" href="{% url 'login' %}">Already have an account? Log in now!</a>
+                <a class="btn btn-md btn-light" href="{% url 'signup' %}">Create an account</a>
+                <!-- <a class="btn btn-link" href="{% url 'login' %}">Already have an account? Log in now!</a> -->
             </p>
         </div>
     </div>
