@@ -7,6 +7,30 @@
 <h2>{{ user.username }}'s Contacts</h2>
 
 {% for contact in page_obj %}
+
+
+<div class="card mb-3" style="max-width: 540px;">
+
+  <div class="row no-gutters">
+    <div class="col-md-4">
+      {% if contact.picture %}
+      <img src="{{ contact.picture.url }}" class="card-img" alt="...">
+      {% else %}
+      <img src="/static/images/default.jpg"  class=""/>
+      {% endif %}
+    </div>
+    <div class="col-md-8">
+      <div class="card-body">
+        <h5 class="card-title"><a href="/contact/{{ contact.id }}/" class="stretched-link">{{ contact.first_name|title }} {{ contact.last_name|title }}</a></h5>
+        <p class="card-text">{{ contact.notes }}</p>
+        <p class="card-text"><small class="text-muted">Time to next contact: {{ countdown }}</small></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- 
 <div class="media mt-3 p-4 border rounded shadow-sm">
     
     {% if contact.picture %}
@@ -15,22 +39,22 @@
     
     <img src="/static/images/default.jpg"  class="thumb"/>
 
-    {% endif %}
+    {% endif %} -->
 
-
-    <!-- This shows the contacts name  as a link to the full details of that contact -->
-    <div class="media-body ml-3 mt-1 mb-1 position-relative">
+   <!-- This shows the contacts name  as a link to the full details of that contact -->
+    <!-- <div class="media-body ml-3 mt-1 mb-1 position-relative">
         <div class="col-8">
         <h5><a href="/contact/{{ contact.id }}/" class="stretched-link">{{ contact.first_name|title }} {{ contact.last_name|title }}<span class="badge badge-pill badge-light ml-2">{{ contact.type|title }}</span></a></h5>
         </div>
-    </div>
+    </div> -->
 
     <!-- This shows the creation date of the contact -->
-    <div>
+    <!-- <div>
         <p class="mt-1"><button type="button" class="btn btn-outline-secondary">Time to next contact: {{ countdown }}</button></p> 
 
     </div>
-</div>
+</div> -->
+
 {% endfor %}
 
     <!-- pagination starts here -->
