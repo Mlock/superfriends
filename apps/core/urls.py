@@ -9,4 +9,5 @@ urlpatterns = [
     path('contact/delete/<int:contact_id>/', views.contact_delete),
     path('contact/edit/<int:contact_id>/', views.edit_contact),
     path('users/', views.user_page, name="user_page"),
+    path('contact/update_contacted/<int:contact_id>/', views.update_contacted),
 ]

@@ -29,17 +29,19 @@
         </div>
     </div>
     <!-- This shows the creation date of the contact -->
-    <div>
-        <form action="." method="POST" >
-            <div class="btn-group btn-group-sm p-1">
-                <a class="btn btn-outline-dark">Snooze</a> <!-- click adds one day to today and saves snooze value -->
-                <a class="btn btn-outline-dark">Contacted</a> <!-- click updates -->
+    <!-- <div>
+        <p>last modified: {{ contact.last_modified|date:"F jS Y" }}</p>
+        <p>frequency modified: {{ contact.frequency_modified|date:"F jS Y" }}</p>
+        <p>countdown: {{ countdown }}</p>
+        <p>Added on {{ contact.created|date:"F jS Y" }}</p>
+    </div> -->
+      <div class="btn-group btn-group-sm p-1">
+        <a  class="btn btn-outline-dark" href="/contact/update_contacted/{{ contact.id }}/">Contacted</a>
+        <a class="btn btn-outline-dark">Snooze</a>
+      </div>
 
-            </div>
-        </form>
         {% if countdown < 0 %}<span class="badge badge-danger ml-1"><strong>OVERDUE</strong></button>{% endif %}
     </div>
-</div>
 {% endfor %}
 
 <!-- else tell user that no contacts are due AND show the below -->
