@@ -26,14 +26,14 @@
 
     </div>
         <div class="col-sm">
-        <p>Name: {{ contact_list.first_name }} {{ contact_list.last_name }}</p>
-        <p>Email: <a href="mailto:{{ contact_list.email }}">{{ contact_list.email }}</a></p>
-        <p>Phone: {{ contact_list.phone }}</p>
-        <p>Address: {{ contact_list.address }}</p>
-        <p>Birthday: {{ contact_list.birthday }}</p>
-        <p>Notes: {{ contact_list.notes }}</p>
-        <p>Frequency: {{ contact_list.frequency }}</p>
-        <p>Added on: {{ contact_list.created|date:"F jS, Y" }}</p>
+        <p><strong>Name</strong>: {{ contact_list.first_name }} {{ contact_list.last_name }}</p>
+        <p><strong>Email</strong>: <a href="mailto:{{ contact_list.email }}">{{ contact_list.email }}</a></p>
+        <p><strong>Phone</strong>: {{ contact_list.phone }}</p>
+        <p><strong>Address</strong>: {{ contact_list.address }}</p>
+        <p><strong>Birthday</strong>: {{ contact_list.birthday }}</p>
+        <p><strong>Notes</strong>: {{ contact_list.notes }}</p>
+        <p><strong>Frequency</strong>: {{ contact_list.frequency }}</p>
+        <p><strong>Added on</strong>: {{ contact_list.created|date:"F jS, Y" }}</p>
         {% if contact_list.website %}
         <a href="{{ contact_list.website }}" title="Website" target="_blank"><img src="/static/images/website.png" height="20px"></a>
         {% else %}
