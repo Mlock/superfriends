@@ -79,7 +79,7 @@
 
 {# Only show this if 1) user is logged out, and 2) we're not on a page with a form #}
 {% if not request.user.is_authenticated and not form %}
-    <div class="bg-info text-light mb-5 pt-3 pb-3 shadow">
+    <div class="bg-info text-light mb-5 p-4 pt-3 pb-3 shadow">
         <div class="container">
             <h1 class="display-4">Superfriends</h1>
             <p class="lead">Welcome to <em>Superfriends</em>, an app to help you stay in touch with the people in your life.</p>
