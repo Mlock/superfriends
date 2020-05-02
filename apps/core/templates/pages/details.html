@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block title %}
-    Superfriends - Your Contacts
+    Superfriends - {{ contact_list.first_name }} {{ contact_list.last_name }}
 {% endblock title %}
 
 {% block content %}
@@ -27,12 +27,12 @@
     </div>
         <div class="col-sm">
         <p>Name: {{ contact_list.first_name }} {{ contact_list.last_name }}</p>
+        <p>Frequency: {{ contact_list.frequency }}</p>
         <p>Email: <a href="mailto:{{ contact_list.email }}">{{ contact_list.email }}</a></p>
         <p>Phone: {{ contact_list.phone }}</p>
         <p>Address: {{ contact_list.address }}</p>
         <p>Birthday: {{ contact_list.birthday }}</p>
         <p>Notes: {{ contact_list.notes }}</p>
-        <p>Frequency: {{ contact_list.frequency }}</p>
         <p>Added on: {{ contact_list.created|date:"F jS, Y" }}</p>
         {% if contact_list.website %}
         <a href="{{ contact_list.website }}" title="Website" target="_blank"><img src="/static/images/website.png" height="20px"></a>
@@ -71,34 +71,7 @@
 
     </div>
     </div>
-
-        
-
-        <!-- <a href="/friend-create/{{ friend_list.id }}/" class="btn btn-primary btn-lg">
-            + Add Friend
-        </a> -->
-        <!-- <a href="/contact/delete/{{ contact_list.id }}/" class="btn btn-outline-danger btn-sm ml-5">Delete "{{contact_list.first_name }} {{contact_list.last_name }}"</a> -->
     </div>
 {% endif %}
-
-
-<!-- {% for friend in all_friends %}
-    <div class="media mt-5 border rounded shadow">
-        {% if book.cover_url %}
-            <img src="{{ book.cover_url }}" alt="Book cover" />
-        {% else %}
-            <img src="https://i.imgur.com/dMlC0dn.png" alt="Book icon" />
-        {% endif %}
-        <div class="media-body ml-3">
-            <h5>{{ friend.name }}</h5>
-            <p>{{ book.description|escape|linebreaks }}</p>
-        </div>
-
-        {% if request.user == reading_list.creator_user %}
-            <a href="/book-delete/{{ friend.id }}/" class="btn btn-outline-danger btn-sm">X</a>
-        {% endif %}
-    </div>
-{% endfor %} -->
-
 {% endblock content %}
 
