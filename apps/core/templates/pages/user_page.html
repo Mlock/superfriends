@@ -22,6 +22,7 @@
     <div class="media-body ml-3 mt-1 mb-1 position-relative">
         <div class="col-8">
         <h5><a href="/contact/{{ contact.id }}/" class="stretched-link">{{ contact.first_name|title }} {{ contact.last_name|title }}<span class="badge badge-pill badge-light ml-2">{{ contact.type|title }}</span></a></h5>
+        <p><strong>About</strong>{{contact.notes |linebreaks }}</p>
         </div>
     </div>
 
