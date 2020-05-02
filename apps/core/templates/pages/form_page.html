@@ -7,14 +7,16 @@
 
 {% block content %}
 
-
-<div class="card border rounded">
-    <div class="card-body">
-        <form method="POST" enctype="multipart/form-data">
-            {% csrf_token %}
-            {% bootstrap_form form %}
-            <button class="btn btn-lg btn-primary btn-block">Save</button>
-        </form>
+<div class="w-75">
+    <div class="card border rounded">
+        <div class="card-body">
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                {% bootstrap_form form %}
+                <button class="btn btn-lg btn-primary btn-block">Save</button>
+            </form>
+        </div>
     </div>
 </div>
+
 {% endblock content %}

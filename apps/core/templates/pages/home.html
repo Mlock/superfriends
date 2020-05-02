@@ -1,112 +1,127 @@
-{% extends "base.html" %} 
+{% extends "base.html" %} {% block title %} Superfriends - Your Friends
+{%endblock title %} {% block content %} {% if request.user.is_authenticated %}
 
-{% block title %} Superfriends - Your Friends {%endblock title %} 
+<!-- if the list has one or more items if due_contact_list.length > 0... -->
+<h2>Up next</h2>
 
-{% block content %} 
+{% for contact, countdown in filtered_countdowns %}
+<!-- Loop through Contacts and display it -->
+<div class="media mt-3 border rounded shadow-sm">
+  <!-- This shows the contacts name  as a link to the full details of that contact -->
+  <div class="media-body ml-3 mt-1 mb-1 position-relative">
+    <h5>
+      <a href="/contact/{{ contact.id }}/" class="stretched-link"
+        >{{ contact.first_name|title }} {{ contact.last_name|title }}<span
+          class="badge badge-primary ml-2"
+          >{{ contact.type|title }}</span
+        ></a
+      >
+    </h5>
+  </div>
 
-{% if request.user.is_authenticated %}
-
-    <!-- if the list has one or more items if due_contact_list.length > 0... -->
-    <h2>Up next</h2>
-    <h3>Get in touch with some folks you haven't talk to in a while</h3>
-
-    {% for contact, countdown in filtered_countdowns %}
-    <!-- Loop through Contacts and display it -->
-    <div class="media mt-3 border rounded shadow-sm">
-    <!-- This shows the contacts name  as a link to the full details of that contact -->
-    <div class="media-body ml-3 mt-1 mb-1 position-relative">
-        <h5>
-        <a href="/contact/{{ contact.id }}/" class="stretched-link"
-            >{{ contact.first_name|title }} {{ contact.last_name|title }}<span
-            class="badge badge-primary ml-2"
-            >{{ contact.type|title }}</span
-            ></a
-        >
-        </h5>
-    </div>
-
-    <div>
-        <!-- This shows the last modified -->
-        <p>last modified: {{ contact.last_modified|date:"F jS Y" }}</p>
-        <p>frequency modified: {{ contact.frequency_modified|date:"F jS Y" }}</p>
-        <!-- This shows countdown value, this token is available for both filtered & not filtered lists -->
-        <p>countdown: {{ countdown }}</p>
-        <!-- This shows the creation date of the contact -->
-        <p>Added on {{ contact.created|date:"F jS Y" }}</p>
-    </div>
-    <form action="." method="POST">
-        <div class="btn-group btn-group-sm p-1">
-        <a class="btn btn-outline-dark">Snooze</a>
-        <!-- click adds one day to today and saves snooze value -->
-        <a class="btn btn-outline-dark">Contacted</a>
-        <!-- click updates -->
-        </div>
-    </form>
-    </div>
-    {% endfor %}
-
-    <!-- else tell user that no contacts are due AND show the below -->
-    <h2>Your Contacts</h2>
-    {% for contact in all_contact_lists %}
-    <!-- Loop through Contacts and display it -->
-
-    <div class="media mt-3 border rounded shadow-sm">
-    <!-- This shows the contacts name  as a link to the full details of that contact -->
-    <div class="media-body ml-3 mt-1 mb-1 position-relative">
-        <h5>
-        <a href="/contact/{{ contact.id }}/" class="stretched-link"
-            >{{ contact.first_name|title }} {{ contact.last_name|title }}<span
-            class="badge badge-primary ml-2"
-            >{{ contact.type|title }}</span
-            ></a
-        >
-        </h5>
-    </div>
-
+  <div>
+    <!-- This shows the last modified -->
+    <p>last modified: {{ contact.last_modified|date:"F jS Y" }}</p>
+    <p>frequency modified: {{ contact.frequency_modified|date:"F jS Y" }}</p>
+    <!-- This shows countdown value, this token is available for both filtered & not filtered lists -->
+    <p>countdown: {{ countdown }}</p>
     <!-- This shows the creation date of the contact -->
-    <div>
-        <p>Added on {{ contact.created|date:"F jS Y" }}</p>
+    </p>Added on {{ contact.created|date:"F jS Y" }}</p>
+  </div>
+  <form action="." method="POST">
+    <div class="btn-group btn-group-sm p-1">
+      <a class="btn btn-outline-dark">Snooze</a>
+      <!-- click adds one day to today and saves snooze value -->
+      <a class="btn btn-outline-dark">Contacted</a>
+      <!-- click updates -->
     </div>
+  </form>
+</div>
+{% endfor %}
+
+<!-- else tell user that no contacts are due AND show the below -->
+<hr>
+<h5>Your Contacts</h5>
+<p>Everyone on your list</p>
+{% for contact in all_contact_lists %}
+<!-- Loop through Contacts and display it -->
+
+<div class="media mt-3 p-2 border rounded">
+  <!-- This shows the contacts name  as a link to the full details of that contact -->
+  <div class="media-body mt-1 p-1 position-relative">
+    <h5>
+      <a href="/contact/{{ contact.id }}/" class="stretched-link"
+        >{{ contact.first_name|title }} {{ contact.last_name|title }}<span
+          class="badge badge-primary ml-2"
+          >{{ contact.type|title }}</span
+        ></a
+      >
+    </h5>
+  </div>
+
+  <!-- This shows the creation date of the contact -->
+  <div>
+    <span class="badge badge-pill badge-light">Added on {{ contact.created|date:"F jS Y" }}</span>
+  </div>
+</div>
+{% endfor %} 
+
+{% else %}
+
+<h3>How Superfriends helps you stay in touch</h3>
+
+<div class="row">
+  <div class="col-lg-4 col-sm-6 mb-4">
+    <div class="card h-100 border border-white">
+      <a href="#"
+        ><img class="card-img-top p-5" src="/static/images/clock.png" alt=""
+      /></a>
+      <div class="card-body">
+        <h4 class="card-title">
+          <a href="#">Set frequency</a>
+        </h4>
+        <p class="card-text">
+          Choose how often you want to keep in touch with contacts and
+          Superfriends will remind you automatically when its time to reach out.
+        </p>
+      </div>
     </div>
-    {% endfor %} 
+  </div>
+  <div class="col-lg-4 col-sm-6 mb-4">
+    <div class="card h-100 border border-white">
+      <a href="#"
+        ><img
+          class="card-img-top p-5"
+          src="/static/images/insurance.png"
+          alt=""
+      /></a>
+      <div class="card-body">
+        <h4 class="card-title">
+          <a href="#">Take notes</a>
+        </h4>
+        <p class="card-text">
+          Keep track of people by adding notes and details to their profile that
+          you can easily update every time you make contact.
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-4 col-sm-6 mb-4">
+    <div class="card h-100 border border-white">
+      <a href="#"
+        ><img class="card-img-top p-5" src="/static/images/contacts.png" alt=""
+      /></a>
+      <div class="card-body">
+        <h4 class="card-title">
+          <a href="#">Groups</a>
+        </h4>
+        <p class="card-text">
+          Add contacts to different groups for the different communities that
+          you're a part of.
+        </p>
+      </div>
 
-    {% else %}
-
-    <h3>How Superfriends helps you stay in touch</h3>
-
-    <div class="row">
-        <div class="col-lg-4 col-sm-6 mb-4">
-          <div class="card h-100 border border-white">
-            <a href="#"><img class="card-img-top p-5" src="/static/images/clock.png" alt=""></a>
-            <div class="card-body">
-              <h4 class="card-title">
-                <a href="#">Set frequency</a>
-              </h4>
-              <p class="card-text">Choose how often you want to keep in touch with contacts and Superfriends will remind you automatically when its time to reach out.</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-4 col-sm-6 mb-4">
-          <div class="card h-100 border border-white">
-            <a href="#"><img class="card-img-top p-5" src="/static/images/insurance.png" alt=""></a>
-            <div class="card-body">
-              <h4 class="card-title">
-                <a href="#">Take notes</a>
-              </h4>
-              <p class="card-text">Keep track of people by adding notes and details to their profile that you can easily update every time you make contact.</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-4 col-sm-6 mb-4">
-          <div class="card h-100 border border-white">
-            <a href="#"><img class="card-img-top p-5" src="/static/images/contacts.png" alt=""></a>
-            <div class="card-body">
-              <h4 class="card-title">
-                <a href="#">Groups</a>
-            </h4>
-            <p class="card-text">Add contacts to different groups for the different communities that you're a part of.</p>
-          </div>
-
-{% endif %}
-
-{% endblock content %}
+      {% endif %} {% endblock content %}
+    </div>
+  </div>
+</div>

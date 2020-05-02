@@ -22,13 +22,12 @@
     <div class="media-body ml-3 mt-1 mb-1 position-relative">
         <div class="col-8">
         <h5><a href="/contact/{{ contact.id }}/" class="stretched-link">{{ contact.first_name|title }} {{ contact.last_name|title }}<span class="badge badge-pill badge-light ml-2">{{ contact.type|title }}</span></a></h5>
-        <p><strong>About</strong>{{contact.notes |linebreaks }}</p>
         </div>
     </div>
 
     <!-- This shows the creation date of the contact -->
     <div>
-        <p class="mt-1"><button type="button" class="btn btn-outline-secondary">Time until next contact: {{ countdown }}</button></p> 
+        <p class="mt-1"><button type="button" class="btn btn-outline-secondary">Time to next contact: {{ countdown }}</button></p> 
 
     </div>
 </div>
