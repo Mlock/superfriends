@@ -35,12 +35,14 @@
         <p>countdown: {{ countdown }}</p>
         <p>Added on {{ contact.created|date:"F jS Y" }}</p>
     </div> -->
-      <div class="btn-group btn-group-sm p-1">
+    <div>
+    <div class="btn-group btn-group-sm p-1">
         <a  class="btn btn-outline-dark" href="/contact/update_contacted/{{ contact.id }}/">Contacted</a>
-        <a class="btn btn-outline-dark">Snooze</a>
-      </div>
-
+        <!-- <a class="btn btn-outline-dark">Snooze</a> -->
+    </div>
+    <br />
         {% if countdown < 0 %}<span class="badge badge-danger ml-1"><strong>OVERDUE</strong></button>{% endif %}
+      </div>
     </div>
 {% endfor %}
 
