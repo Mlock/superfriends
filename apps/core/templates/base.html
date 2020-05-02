@@ -74,13 +74,14 @@
 
 {# Only show this if 1) user is logged out, and 2) we're not on a page with a form #}
 {% if not request.user.is_authenticated and not form %}
-    <div class="bg-info text-light mb-3 p-1 pt-3 pb-1 shadow">
+    <div class="bg-info text-light mb-3 p-1 pt-5 pb-1 shadow" style="height: 300px;">
         <div class="container">
-            <p class="lead">Superfriends is a simple way to keep in touch with their communities.</p>
+            <h1>Build deeper connections</h1>
+            <p class="lead text-light">Superfriends is a simple way to keep in touch with their communities.</p>
             <hr class="my-4">
             <p>
-                <a class="btn btn-md btn-light" href="{% url 'signup' %}">Create an account</a>
-                <a class="btn btn-md btn-success" href="{% url 'login' %}">Already have an account? Log in now!</a>
+                <a class="btn btn-primary btn-lg" href="{% url 'signup' %}">Create an account</a>
+                <a class="btn btn-secondary btn-lg" href="{% url 'login' %}">Already have an account? Log in now!</a>
             </p>
         </div>
     </div>
