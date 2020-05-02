@@ -9,7 +9,7 @@ urlpatterns = [
     path('contact/create/', views.contact_create),
     path('contact/delete/<int:contact_id>/', views.contact_delete),
     path('contact/edit/<int:contact_id>/', views.edit_contact),
-    path('users/<creator_user>/', views.user_page, name="user_page"),
+    path('users/', views.user_page, name="user_page"),
 
     # # CRUD views for editing Books within ReadingLists
     # path('friend-create/<int:friend_id>/', views.friend_list_create_book),

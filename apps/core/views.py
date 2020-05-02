@@ -22,14 +22,14 @@ def contact_home(request):
     return render(request, 'pages/home.html', {'page_obj': page_obj})
 
 
-def user_page(request, creator_user):
+def user_page(request):
     contacts = Contact.objects.order_by(Lower('last_name'))
-    contacts_by_user = contacts.filter(creator_user=creator_user)
+    contacts_by_user = contacts.filter(creator_user=request.user.id)
     paginator = Paginator(contacts_by_user, 5)
 
     context = {
         'contacts': contacts_by_user,
-        'user_on_page': creator_user,
+        'user_on_page': request.user.id,
     }
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
