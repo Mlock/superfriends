@@ -6,62 +6,96 @@
 
 {% block content %}
 <!-- if the list has one or more items if due_contact_list.length > 0... -->
+
 <h2>Due Contacts, Reach out!</h2>
 <h3>Number due: {{ due_contact_list.length }}</h3>
 
+
+
 {% for contact, countdown in filtered_countdowns %}
-    <!-- Loop through Contacts and display it -->
+<div class="media mt-3 p-4 border rounded shadow-sm">
+    
+    {% if contact.picture %}
+    <img src="{{ contact.picture.url }}" class="thumb">
+    {% else %}    
+    <img src="/static/images/default.jpg"  class="thumb"/>
+    {% endif %}
 
-    <div class="media mt-3 border rounded shadow-sm">
 
-
-        <!-- This shows the contacts name  as a link to the full details of that contact -->
-        <div class="media-body ml-3 mt-1 mb-1 position-relative">
-            <h5><a href="/contact/{{ contact.id }}/" class="stretched-link">{{ contact.first_name|title }} {{ contact.last_name|title }}<span class="badge badge-primary ml-2">{{ contact.type|title }}</span></a></h5>
+    <!-- This shows the contacts name  as a link to the full details of that contact -->
+    <div class="media-body ml-3 mt-1 mb-1 position-relative">
+        <div class="col-8">
+    <h5><a href="/contact/{{ contact.id }}/" class="stretched-link">{{ contact.first_name|title }} {{ contact.last_name|title }}<span class="badge badge-pill badge-light ml-2">{{ contact.type|title }}</span></a></h5>
         </div>
+    </div>
 
-        
-        <div>
-            <!-- This shows the last modified -->
-            <p>last modified: {{ contact.last_modified|date:"F jS Y" }}</p>
-            <p>frequency modified: {{ contact.frequency_modified|date:"F jS Y" }}</p>
-            <!-- This shows countdown value, this token is available for both filtered & not filtered lists -->
-            <p>countdown: {{ countdown }}</p>
-            <!-- This shows the creation date of the contact -->
-            <p>Added on {{ contact.created|date:"F jS Y" }}</p> 
-        </div>
+    <!-- This shows the creation date of the contact -->
+    <div>
         <form action="." method="POST" >
             <div class="btn-group btn-group-sm p-1">
                 <a class="btn btn-outline-dark">Snooze</a> <!-- click adds one day to today and saves snooze value -->
                 <a class="btn btn-outline-dark">Contacted</a> <!-- click updates -->
+
             </div>
         </form>
+        {% if countdown < 0 %}<span class="badge badge-danger ml-1"><strong>OVERDUE</strong></button>{% endif %}
     </div>
+</div>
 {% endfor %}
 
 <!-- else tell user that no contacts are due AND show the below -->
 
 
 <h2>Your Contacts</h2>
-{% for contact in all_contact_lists %}
+{% for contact in page_obj %}
     <!-- Loop through Contacts and display it -->
-
     <div class="media mt-3 border rounded shadow-sm">
-
+        {% if contact.picture %}
+        <img src="{{ contact.picture.url }}" class="thumb">
+        {% else %}    
+        <img src="/static/images/default.jpg"  class="thumb"/>
+        {% endif %}
+    
+    
 
         <!-- This shows the contacts name  as a link to the full details of that contact -->
         <div class="media-body ml-3 mt-1 mb-1 position-relative">
-            <h5><a href="/contact/{{ contact.id }}/" class="stretched-link">{{ contact.first_name|title }} {{ contact.last_name|title }}<span class="badge badge-primary ml-2">{{ contact.type|title }}</span></a></h5>
+            <h5><a href="/contact/{{ contact.id }}/" class="stretched-link">{{ contact.first_name|title }} {{ contact.last_name|title }}<span class="badge badge-pill badge-light ml-2">{{ contact.type|title }}</span></a></h5>
         </div>
 
         <!-- This shows the creation date of the contact -->
         <div>
-            <p>Added on {{ contact.created|date:"F jS Y" }}</p> 
+            <p class="mt-1"><button type="button" class="btn btn-outline-secondary">Contact frequency: {{ contact.frequency }}</button></p> 
         </div>
     </div>
 {% endfor %}
 
-
+    <!-- pagination starts here -->
+    <div>
+        <br />
+    {% if page_obj.has_other_pages %}
+      <ul class="pagination pagination-sm">
+        {% if page_obj.has_previous %}
+          <li><a class="page-link" href="?page={{ page_obj.previous_page_number }}">&laquo;</a></li>
+        {% else %}
+          <li class="disabled"><span class="page-link">&laquo;</span></li>
+        {% endif %}
+        {% for i in page_obj.paginator.page_range %}
+          {% if page_obj.number == i %}
+            <li class="page-item active"><span class="page-link">{{ i }} <span class="sr-only">(current)</span></span></li>
+          {% else %}
+            <li><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+          {% endif %}
+        {% endfor %}
+        {% if page_obj.has_next %}
+          <li><a class="page-link" href="?page={{ page_obj.next_page_number }}">&raquo;</a></li>
+        {% else %}
+          <li class="disabled"><span class="page-link">&raquo;</span></li>
+        {% endif %}
+      </ul>
+      {% endif %}
+    </div>
+    <!-- pagination ends here -->
 
 {% endblock content %}
 

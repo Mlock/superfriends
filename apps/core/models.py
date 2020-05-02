@@ -49,9 +49,3 @@ class Contact(models.Model):
 
     creator_user = models.ForeignKey(User, on_delete=models.CASCADE)
 
-# class IndividualContact(models.Model):
-#     contact_list = models.ForeignKey(
-#         Contact,
-#         on_delete=models.CASCADE,
-#     )
-
