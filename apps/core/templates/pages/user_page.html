@@ -6,7 +6,8 @@
 
 <h2>{{ user.username }}'s Contacts</h2>
 
-{% for contact in page_obj %}
+<!--  my change jmc-->
+{% for contact, countdown in contacts %}
 <div class="media mt-3 p-4 border rounded shadow-sm">
     
     {% if contact.picture %}
@@ -25,6 +26,9 @@
         <p><strong>About</strong>{{contact.notes |linebreaks }}</p>
         </div>
     </div>
+    
+    <!-- TO USE
+    <p>countdown: {{ countdown }}</p> -->
 
     <!-- This shows the frequency you want to contact this person -->
     <div>
