@@ -14,7 +14,7 @@ from django.core.paginator import Paginator
 def contact_home(request):
     due_contact_list = get_contacts_due(Contact.objects.filter(creator_user=request.user.id))
     contact_lists = Contact.objects.filter(creator_user=request.user.id).order_by(Lower('last_name'))
-    paginator = Paginator(contact_lists, 5)
+    paginator = Paginator(contact_lists, 7)
     countdowns = [get_contact_countdown(c) for c in contact_lists]
     filtered_countdowns = [get_contact_countdown(c) for c in due_contact_list]
     page_number = request.GET.get('page')
@@ -48,7 +48,7 @@ def user_page(request):
     contacts = Contact.objects.order_by(Lower('last_name'))
     contacts_by_user = contacts.filter(creator_user=request.user.id)
     countdowns = [get_contact_countdown(c) for c in contacts_by_user] # add countdown info 
-    paginator = Paginator(contacts_by_user, 5)
+    paginator = Paginator(contacts_by_user, 7)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 

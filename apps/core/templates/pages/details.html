@@ -7,8 +7,7 @@
 {% block content %}
 <h1>
     {{ contact_list.first_name }} {{ contact_list.last_name }}
-    <span class="badge badge-pill badge-light">{{ contact_list.type|title }}</span>
-
+    <span class="badge badge-pill badge-{% include "snippets/contact_color_badges.html" %}">{{ contact_list.type|title }}</span>
 </h1>
 
 {% if user.is_authenticated and contact_list.creator_user == user %}
