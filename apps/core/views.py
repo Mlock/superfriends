@@ -40,8 +40,6 @@ def update_contacted(request, contact_id): # , frequency modified
         contact.save()    
 
     return redirect('/')
-
-
     
     #After performing some kind of operation with side effects, like creating or deleting an object, it’s a best practice to redirect to another URL to prevent accidentally performing the operation twice.
 
@@ -53,20 +51,23 @@ def user_page(request):
     contacts_by_user = contacts.filter(creator_user=request.user.id)
     countdowns = [get_contact_countdown(c) for c in contacts_by_user] # add countdown info 
     # this is about what you need on the template to make this work:
-    # {% for contact, countdown in filtered_countdowns %}
+    # {% for contact, countdown in countdowns %}
     # because zip returns a tuple
-
-    paginator = Paginator(contacts_by_user, 7)
-
-    context = {
-        'contacts': contacts_by_user,
-        'countdowns': zip(contacts_by_user, countdowns),
-        'user_on_page': request.user.id,
-    }
+    
+    paginator = Paginator(contacts_by_user, 3)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
+    context = {
+        'contacts': contacts_by_user,
+        'test': countdowns,
+        'countdowns': zip(contacts_by_user, countdowns),
+        'user_on_page': request.user.id,
+        'page_obj': page_obj,
+    }
+
     return render(request, 'pages/user_page.html', {'page_obj': page_obj})
+    # return render(request, 'pages/user_page.html', context)
 
 
 def contact_details(request, contact_id):

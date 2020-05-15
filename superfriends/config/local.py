@@ -13,7 +13,9 @@ DATABASES = {
     }
 }
 
-INSTALLED_APPS += ['debug_toolbar']
+INSTALLED_APPS += [
+    'debug_toolbar',
+    ]
 
 # Add in Debug Toolbar Middleware
 MIDDLEWARE = [
