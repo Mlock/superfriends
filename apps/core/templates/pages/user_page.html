@@ -5,16 +5,9 @@
 {% block content %}
 
 <h2>{{ user.username }}'s Contacts</h2>
-<<<<<<< HEAD
 {% for contact in page_obj %}
 
 <div class="media mt-3 border rounded shadow-sm">
-=======
-
-<!--  my change jmc-->
-{% for contact, countdown in contacts %}
-<div class="media mt-3 p-4 border rounded shadow-sm">
->>>>>>> 49f331fe237cf65ac2e131a08da6a014a89bec2c
     
     {% if contact.picture %}
     <img src="{{ contact.picture.url }}" class="thumb">

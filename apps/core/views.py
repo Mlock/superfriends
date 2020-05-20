@@ -40,45 +40,27 @@ def update_contacted(request, contact_id):
         contact.save()    
 
     return redirect('/')
-<<<<<<< HEAD
     
     #After performing some kind of operation with side effects, like creating or deleting an object, it’s a best practice to redirect to another URL to prevent accidentally performing the operation twice.
 
 # the new view finishes with a redirect to make button work- this one is "snooze" - jMc
-=======
 
 # TODO the new view finishes with a redirect to make button work- this one is "snooze" - jMc
->>>>>>> 49f331fe237cf65ac2e131a08da6a014a89bec2c
 # def home_set_snooze(request):
 
 def user_page(request):
     contacts = Contact.objects.order_by(Lower('last_name'))
     contacts_by_user = contacts.filter(creator_user=request.user.id)
     countdowns = [get_contact_countdown(c) for c in contacts_by_user] # add countdown info 
-<<<<<<< HEAD
     # this is about what you need on the template to make this work:
     # {% for contact, countdown in countdowns %}
     # because zip returns a tuple
     
     paginator = Paginator(contacts_by_user, 10)
-=======
-    paginator = Paginator(contacts_by_user, 7)
->>>>>>> 49f331fe237cf65ac2e131a08da6a014a89bec2c
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
     context = {
-<<<<<<< HEAD
-        'contacts': contacts_by_user,
-        'test': countdowns,
-        'countdowns': zip(contacts_by_user, countdowns),
-        'user_on_page': request.user.id,
-        'page_obj': page_obj,
-    }
-
-    return render(request, 'pages/user_page.html', {'page_obj': page_obj})
-    # return render(request, 'pages/user_page.html', context)
-=======
         'contacts': zip(contacts_by_user, countdowns),
         'countdowns': countdowns,
         'user_on_page': request.user.id,
@@ -86,7 +68,6 @@ def user_page(request):
     }
     
     return render(request, 'pages/user_page.html', context)
->>>>>>> 49f331fe237cf65ac2e131a08da6a014a89bec2c
 
 
 def contact_details(request, contact_id):
