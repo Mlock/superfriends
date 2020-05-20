@@ -12,6 +12,8 @@ psycopg2-binary = "*"
 bootstrap4 = "*"
 django-debug-toolbar = "*"
 pillow = "*"
+boto3 = "*"
+django-storages = "*"
 
 [dev-packages]
 django-debug-toolbar = "*"
