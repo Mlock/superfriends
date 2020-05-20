@@ -54,7 +54,7 @@ def user_page(request):
     # {% for contact, countdown in countdowns %}
     # because zip returns a tuple
     
-    paginator = Paginator(contacts_by_user, 3)
+    paginator = Paginator(contacts_by_user, 10)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
